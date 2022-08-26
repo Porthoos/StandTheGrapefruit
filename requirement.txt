@@ -1,0 +1,5 @@
+pyqtgraph==0.10.0
+numpy==1.18.2
+pykinect2==0.1.0
+opencv-python==4.2.0.34
+open3d-python==0.7.0.0
