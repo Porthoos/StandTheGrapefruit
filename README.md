@@ -1,129 +1,20 @@
-# PyKinect2-PyQtGraph-PointClouds
-Creating real-time dynamic Point Clouds using PyQtGraph, Kinect 2 and the python library PyKinect2.
+### 项目介绍
+本项目是基于kinect相机和机械臂的项目，目的是扶正传送带上的柚子，减少人工投入。
 
-## Description
-The PointCloud.py file contains the main class to produce dynamic Point Clouds using the [PyKinect2](https://github.com/Kinect/PyKinect2) and the [PyQtGraph](https://github.com/pyqtgraph/pyqtgraph) libraries.
-The main file uses the numpy library that runs in C, thus it is fully optimized and can produce dynamic Point Clouds with up to 60+ frames, except for the point clouds produces by the RGB camera that run in 10+ frames.
-The library can also be used to create a PointCloud and save it as a .txt file containing the world point coordinates as: 
-x, y, z
-   .
-   .
-   .
-x, y, z
-It can also be used to view .ply or .pcd point cloud files or create PointClouds and save them as .ply or .pcd files. Instructions on how to use the main file are written in the **Instructions** chapter.
-In addition, there is a window with opencv track bars that can be used to dynamically change the color and the size of the points in the point cloud and the input flags.
+### 算法介绍
+#### 1.3D点云处理
 
-## Requirements
-Install all requirements using the following command:
-```
-pip install requirement
-```
-Full list of **all** requirements.
-```
-* pyqtgraph==0.10.0
-* numpy==1.18.2
-* pykinect2==0.1.0
-* opencv-python==4.2.0.34
-* open3d-python==0.7.0.0
-* time (already installed with Python3)
-* sys (already installed with Python3)
-* os (already installed with Python3)
-* ctypes (already installed with Python3)
-```
-Another dependecy is the [mapper](https://github.com/KonstantinosAng/PyKinect2-Mapper-Functions) file that I created and handles the ICoordanteMapper functions. Download the file and place it in the same directory as the PointCloud.py file. The main file is tested with [Python 3.6.8](https://www.python.org/downloads/release/python-368/).
+#### 2.PCA主成分分析
+在用统计分析方法研究多变量的课题时，变量个数太多就会增加课题的复杂性。人们自然希望变量个数较少而得到的信息较多。在很多情形，变量之间是有一定的相关关系的，当两个变量之间有一定相关关系时，可以解释为这两个变量反映此课题的信息有一定的重叠。主成分分析是对于原先提出的所有变量，将重复的变量（关系紧密的变量）删去多余，建立尽可能少的新变量，使得这些新变量是两两不相关的，而且这些新变量在反映课题的信息方面尽可能保持原有的信息。
+设法将原来变量重新组合成一组新的互相无关的几个综合变量，同时根据实际需要从中可以取出几个较少的综合变量尽可能多地反映原来变量的信息的统计方法叫做主成分分析或称主分量分析，也是数学上用来降维的一种方法。
 
-## Instructions
-First import the main class as:
-```
-from PointCloud import Cloud
-```
-For viewing a point cloud text file with:                                              
-    x, y, z                                                                            
-    ....                                                                               
-    x, y, z                                                                            
-(world point coordinates)                                                              
-If the file with the name does not exists it will create a point cloud with kinect and save it to that file.txt. It can also view .pcd and .ply files. I have uploaded some pointcloud files in the models/ directory for testing purposes.
-```
-# viewing a .txt file
-pcl = Cloud(file='models/test_cloud_4.txt')
-pcl.visualize()
+#### 3.ICP点云配准
+ICP搜索就近点的主要方法
+1. Point to Point就近点搜索法
+Point to Point就近点搜索法是ICP算法中最经典的一种方法。Point to Point法根据源曲面上的一个点p，在目标曲面上找出对应于p点距离最近的q点。在这个方法中通常运用kd-tree的方法实现就近点搜索。pi是源曲面点云数据中的一个点，Vi是生成目标曲面点云数据中距Pi最近的点。根据Vi点搜索出在曲面上与Vi点相邻的点构成的三角形格网，计算pi点投影到每个三角形平面上的投影点qi的坐标。对于每个三角形来说，当投影点qi位于三角形内部，则距离最近点是搜索的最近点，当投影点qi位于三角形外部，搜索的就近点应位于三角形的两条边界上，Vi是该三角形到pi点的就近距离点。将每个三角形确定的就近距离点进行比较可获得一个最近点。
+2. Point to Plane就近点搜索算法
+Point to Plane法是根据源曲面上的一个点p，在目标曲面上找出对应于p点一个最近的q点。搜索算法是根据源曲面上p点的切平面的法线，确定发现于目标曲面的交点q’。根据目标曲面上q’点求出的过q’点切平面，然后求源曲面上p点到过q’点切平面的垂线的交点q。
+3. Point to Projection就近点搜索算法
+Point to Projection就近点搜索法是一种快速的配准方法。Oq是扫描目标曲面的透视点的位置。Point to Projection法是根据源曲面上的一个点p和透视点Oq，在目标曲面上找出q点作为对应于p点的就近点。通过确定Oq点向p点方向的投影线与目标曲面的交点q，作为搜索的就近点。
 
-# viewing .ply or .pcd files
-# .pcd or .ply files open with the Open3D library
-pcl = Cloud(file='models/model.pcd')
-
-pcl = Cloud(file='models/Car.ply')
-```
-If the files doesn't exist then you have to specify from which sensor camera you want the pointcloud to be created and saved with that file name.
-The color point cloud is slower than the depth point cloud due to more points generated and written to the file.
-```
-# Creating a .txt PointCloud with the depth camera
-pcl = Cloud(file='models/cloud_test_1.txt', depth=True)
-pcl.visualize()
-
-# Creating a .ply PointCloud with the depth camera
-pcl = Cloud(file='models/cloud_test_1.ply', depth=True)
-
-# Creating a .pcd PointCloud with the depth camera
-pcl = Cloud(file='models/cloud_test_1.pcd', depth=True)
-
-# Creating a .txt PointCloud with the color camera
-pcl = Cloud(file='models/cloud_test_2.txt', color=True)
-pcl.visualize()
-
-# Creating a .ply PointCloud with the color camera
-pcl = Cloud(file='models/cloud_test_3.ply', color=True)
-
-# Creating a .pcd PointCloud with the color camera
-pcl = Cloud(file='models/cloud_test_3.pcd', color=True)
-
-```
-For dynamically creating and viewing the PointCloud.
-```
-# rgb camera
-pcl = Cloud(dynamic=True, color=True)
-pcl.visualize()
-
-# depth camera
-pcl = Cloud(dynamic=True, depth=True)
-pcl.visualize()
-
-# body index
-pcl = Cloud(dynamic=True, body=True)
-pcl.visualize()
-
-# skeleton cloud
-pcl = Cloud(dynamic=True, skeleton=True)
-pcl.visualize()
-```
-You can also visualize the clouds simultaneously in any order.
-```
-# example 1 with color and depth point clouds
-pcl = Cloud(dynamic=True, simultaneously=True, color=True, depth=True, body=False, skeleton=False, color_overlay=False)
-pcl.visualize()
-
-# example 2 with all the point clouds enabled (scroll out to see the point cloud)
-pcl = Cloud(dynamic=True, simultaneously=True, depth=True, color=True, body=True, skeleton=True, color_overlay=True)
-pcl.visualize()
-
-# example 3 with depth and body index point cloud
-pcl = Cloud(dynamic=True, simultaneously=True, depth=True, color=False, body=True, skeleton=False, color_overlay=True)
-pcl.visualize()
-```
-
-In addition, there is a window with trackbars to change the input flags, the color and point size of the cloud without closing the app.
-
-## Examples
-Run the main file, to see the functionality, as:
-```
-python PointCloud.py
-```
-<p align="center">
-<img src="img/image_9.png"/>
-<img src="img/image_1.png"/>
-<img src="img/image_2.png"/>
-<img src="img/image_3.png"/>
-<img src="img/image_4.png"/>
-<img src="img/image_6.png"/>
-<img src="img/image_7.png"/>
-</p>
+#### 4.结合PCA与ICP
