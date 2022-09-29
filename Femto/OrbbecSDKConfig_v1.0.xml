@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Config>
+    <Log>
+        <!--默认日志输出等级，int类型，可选值:0-DEBUG，1-INFO，2-WARN，3-ERROR，4-FATAL，5-NONE-->
+        <LogLevel>1</LogLevel>
+        <!--默认日志输出文件路径，string类型-->
+        <OutPutDir>D:\log\</OutPutDir>
+    </Log>
+    <Device>
+		<!--AstraPlus对应的设备为Astra+-->
+        <AstraPlus>
+            <Depth>
+                <!--默认开启分辨率的宽，int类型-->
+                <Width>640</Width>
+                <!--默认开启分辨率的高，int类型-->
+                <Height>480</Height>
+                <!--默认开启分辨率的帧率，int类型-->
+                <FPS>10</FPS>
+                <Format>Y16</Format>
+            </Depth>
+            <Color>
+                <!--默认开启分辨率的宽，int类型-->
+                <Width>1920</Width>
+                <!--默认开启分辨率的高，int类型-->
+                <Height>1080</Height>
+                <!--默认开启分辨率的帧率，int类型-->
+                <FPS>30</FPS>
+                <Format>MJPG</Format>
+            </Color>
+             <IR>
+                <!--默认开启分辨率的宽，int类型-->
+                <Width>640</Width>
+                <!--默认开启分辨率的高，int类型-->
+                <Height>480</Height>
+                <!--默认开启分辨率的帧率，int类型-->
+                <FPS>10</FPS>
+                <Format>Y16</Format>
+            </IR>
+            <!--Pipeline方式默认帧同步状态，0-关闭，1-开启-->
+            <FrameSync>0</FrameSync>
+            <!--深度图像向彩色图像对齐，0-关闭，1-硬件对齐，2-软件对齐-->
+            <D2C>1</D2C>
+        </AstraPlus>
+    </Device>            
+    
+</Config>

@@ -7,21 +7,22 @@ import PCA1
 import draw_row
 from pyntcloud import PyntCloud
 
-path1 =   'models/model/test_tmp.ply'
-path2 =   'models/model/test_tmp1.ply'
-path3 =   'models/model/test_tmp2.ply'
-path3_1 = 'models/model/test_tmp2_1.ply'
-path4 =   'models/model/test_tmp3.ply'
+temp = 'models/3d'
+path1 =   temp + '/test_tmp.ply'
+path2 =   temp + '/test_tmp1.ply'
+path3 =   temp + '/test_tmp2.ply'
+path3_1 = temp + '/test_tmp2_1.ply'
+path4 =   temp + '/test_tmp3.ply'
 
 
-# if os.path.exists(path1):
-#     os.remove(path1)
-# # file = open('models/lyy.ply', 'w').close()
-# pcl = PointCloud.Cloud(file=path1, depth=True)
-# pcl = PointCloud.Cloud(file=path1, color=True)
-# pcl2 = PointCloud.Cloud(file=path1)
+if os.path.exists(path1):
+    os.remove(path1)
+# file = open('models/lyy.ply', 'w').close()
+pcl = PointCloud.Cloud(file=path1, depth=True)
+pcl = PointCloud.Cloud(file=path1, color=True)
+pcl2 = PointCloud.Cloud(file=path1)
 
-
+print(1111)
 reload.load_ply(path1, path2)
 reload.remove_color(path2, path3)
 
