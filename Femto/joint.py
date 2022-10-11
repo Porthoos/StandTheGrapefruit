@@ -4,21 +4,18 @@ import numpy as np
 import open3d as o3d
 
 
-def transform(points):
-    angle = 90
-    sin = math.sin(math.radians(angle))
-    cos = math.cos(math.radians(angle))
+#平移操作
+def transform(points, x, y, z):
     transformation = [
-        [1., 0., 1., 0.],
-        [0., cos, -sin, 0.],
-        [1., sin, cos, 0.],
+        [1., 0., 0., x ],
+        [0., 1., 0., y ],
+        [0., 0., 1., z ],
         [0., 0., 0., 1.]
     ]
     points.transform(transformation)
 
 #绕X轴逆时针旋转角度θ
-def transform_x(points):
-    angle = 90
+def transform_x(points, angle):
     x = 0
     y = 0
     z = 0
@@ -33,8 +30,8 @@ def transform_x(points):
     points.transform(transformation)
 
 #绕Y轴逆时针旋转角度θ
-def transform_y(points):
-    angle = 90
+def transform_y(points, angle):
+    # angle = 90
     x = 0
     y = 0
     z = 0
@@ -49,8 +46,7 @@ def transform_y(points):
     points.transform(transformation)
 
 #绕Z轴逆时针旋转角度θ
-def transform_z(points):
-    angle = 90
+def transform_z(points, angle):
     x = 0
     y = 0
     z = 0
@@ -89,7 +85,18 @@ if __name__ == '__main__':
 
     #旋转平移之后的两个点云,固定points1！！！
     #旋转平移 调用三种transform的方法！！！
-    transform(source0)
+    x = 0
+    y = 0
+    z = 0
+    anglex = 90
+    angley = 90
+    anglez = 90
+    transform(source0,x,y,z)
+    transform_x(source0, anglex)
+    transform_y(source0, angley)
+    transform_z(source0, anglez)
+
+    
     points0_xyz = np.array(source0.points)
     points0_rgb = np.array(source0.colors)
     points3_xyz = np.concatenate((points0_xyz, points1_xyz), axis=0)
