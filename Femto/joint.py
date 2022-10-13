@@ -62,8 +62,8 @@ def transform_z(points, angle):
 
 
 if __name__ == '__main__':
-    path_left = "C:/Users/jdy/Documents/GitHub/StandTheGrapefruit/Femto/xyzrgb/RGBDPoints_20221011201946.ply"
-    path_right = "C:/Users/jdy/Documents/GitHub/StandTheGrapefruit/Femto/xyzrgb/RGBDPoints_20221011202016.ply"
+    path_left = "C:/Users/jdy/Documents/GitHub/StandTheGrapefruit/Femto/xyzrgb_temp/test_tmp1l.ply"
+    path_right = "C:/Users/jdy/Documents/GitHub/StandTheGrapefruit/Femto/xyzrgb_temp/test_tmp1r.ply"
 
 #旋转平移前的两个点云
     source0 = o3d.io.read_point_cloud(path_left, format='ply')
@@ -91,12 +91,12 @@ if __name__ == '__main__':
     z = 180
     anglex = 5
     angley = -10
-    anglez = 90
+    # anglez = 90
 
     # transform_x(source0, anglex)
     # transform_y(source0, angley)
     # transform_z(source0, anglez)
-    transform(source0,x,y,z)
+    # transform(source0,x,y,z)
 
 
     points0_xyz = np.array(source0.points)
@@ -107,9 +107,10 @@ if __name__ == '__main__':
     ply_final = o3d.geometry.PointCloud()
     ply_final.points = o3d.utility.Vector3dVector(points3_xyz)
     ply_final.colors = o3d.utility.Vector3dVector(points3_rgb)
-    # o3d.visualization.draw_geometries([ply_final])
-    path_out = "C:/Users/jdy/Documents/GitHub/StandTheGrapefruit/Femto/img/final_xyzrgb.ply"
-    o3d.io.write_point_cloud(path_out,ply_final,True)
+    o3d.visualization.draw_geometries([ply_final])
+    #保存点云信息到这个文件里面
+    # path_out = "C:/Users/jdy/Documents/GitHub/StandTheGrapefruit/Femto/img/final_xyzrgb.ply"
+    # o3d.io.write_point_cloud(path_out,ply_final,True)
 
 
 

@@ -64,9 +64,13 @@ def load_ply(path, target):
         #     continue
         # f_w.writelines(i)
         # count += 1
-        if x < -200 or x > 250 or y < -200 or y > 300:
+        # if x < -200 or x > 250 or y < -200 or y > 300:
+        #     continue
+        # if r < 100 and g < 100 and b < 100:
+        #     continue
+        if x > 650 or y > 675:
             continue
-        if r < 100 and g < 100 and b < 100:
+        if r < 150 and g < 150 and b < 150:
             continue
         if z > 900:
             continue
