@@ -54,6 +54,7 @@ def load_ply(path, target):
         x = eval(tmp[0])
         z = eval(tmp[1])
         y = eval(tmp[2])
+        # print(i)
 
         # if r < 200 and g < 200 and b > 50:
         #     continue
@@ -76,15 +77,27 @@ def load_ply(path, target):
             continue
         # if z > 200:
         #     continue
-        if distance(x,y,z) > 370:
+
+        # 侧面的情况！！！
+        if distance(x,y,z) > 475:
+            ##垂直不能用这样切割1！！！
+            print("distance:" + str(distance(x,y,z)))
             continue
         if r < 170 and g < 170 and b < 170:
             continue
-        if z > 900:
+        if z > 500:
+            print(">700")
             continue
+
+        # # 竖直的情况
+        # if r < 170 and g < 170 and b < 170:
+        #     continue
+        # if z > 900:
+        #     continue
+
+
         if r > b and g > b:
             f_w.writelines(i)
-            print(i)
             count += 1
         # if r>=150 and g>=1 and b<=100:
         #     f_w.writelines(i)
