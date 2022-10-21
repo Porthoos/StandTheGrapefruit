@@ -161,6 +161,8 @@ for i in range(12) :
     print("Angle about x is {}".format(angle_0))
     print("Angle about y is {}".format(angle_1))
     print("Angle about z is {}".format(angle_2))
+    result = np.dot(r2e.transform_x(angle_0), np.dot(r2e.transform_y(angle_1), r2e.transform_z(angle_2)))
+    print(result)
     ICP.draw_registration_result(source, target, reg_p2p.transformation)
     tmp = reg_p2p.transformation
 

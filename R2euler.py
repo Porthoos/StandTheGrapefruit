@@ -1,10 +1,4 @@
-"""
-FileName: r2euler_self.py
-File to caluculate euler from rotation matrix
-Method of using basic matrix equations
-Input str in upper -- intrinsic
-Input str in lower -- extrinsic
-"""
+
 
 import math
 import sys
@@ -12,6 +6,41 @@ import sys
 import numpy as np
 from scipy.spatial.transform import Rotation as R
 
+#绕X轴逆时针旋转角度θ
+def transform_x(x):
+    sin = math.sin(x)
+    cos = math.cos(x)
+    transformation = [
+        [1.,  0.,   0., 0 ],
+        [0., cos, -sin, 0 ],
+        [0., sin,  cos, 0 ],
+        [0.,  0.,   0., 1 ]
+    ]
+    return transformation
+
+#绕Y轴逆时针旋转角度θ
+def transform_y(y):
+    sin = math.sin(y)
+    cos = math.cos(y)
+    transformation = [
+        [ cos, 0., sin, 0 ],
+        [  0., 1.,  0., 0 ],
+        [-sin, 0., cos, 0 ],
+        [  0., 0.,  0., 1.]
+    ]
+    return transformation
+
+#绕Z轴逆时针旋转角度θ
+def transform_z(z):
+    sin = math.sin(z)
+    cos = math.cos(z)
+    transformation = [
+        [cos, -sin, 0., 0 ],
+        [sin,  cos, 0., 0 ],
+        [0. ,   0., 1., 0 ],
+        [0. ,   0., 0., 1.]
+    ]
+    return transformation
 
 def r2euler(R):
     R = np.array(R)
@@ -48,6 +77,8 @@ if __name__ == "__main__":
     print("Angle about x is {}".format(angle_0))
     print("Angle about y is {}".format(angle_1))
     print("Angle about z is {}".format(angle_2))
+    result = np.dot(transform_x(angle_0), np.dot(transform_y(angle_1) , transform_z(angle_2)))
+    print(result)
 
 
 
