@@ -50,6 +50,7 @@ elif judge == "balltwo":
     path3 = temp + '/test_tmp2bb.ply'
     path3_1 = temp + '/test_tmp2bb_1.ply'
     path4 = temp + '/test_tmp3bb.ply'
+
 # show4 = ICP.o3d.io.read_point_cloud(path5, format='ply')
 # o3d.visualization.draw_geometries([show4])
 

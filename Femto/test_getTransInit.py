@@ -6,6 +6,9 @@ import ICP
 import draw_row
 import move_to_origin
 
+
+
+
 path1 = 'C:/Users/jdy/Documents/GitHub/StandTheGrapefruit/models/model/test_tmp_model.ply'
 path2 = "C:/Users/jdy/Documents/GitHub/StandTheGrapefruit/Femto/xyzrgb_temp/test_tmp2.ply"
 

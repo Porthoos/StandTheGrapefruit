@@ -5,6 +5,7 @@ import PCA1
 import ICP
 import draw_row
 import move_to_origin
+import R2euler as r2e
 
 # Angle_X = 0
 # Angle_Y = 0
@@ -155,6 +156,11 @@ for i in range(12) :
     print(reg_p2p)
     print("Transformation is:")
     print(reg_p2p.transformation)
+    print("Eluer is:")
+    angle_0, angle_1, angle_2 = r2e.r2euler(reg_p2p.transformation)
+    print("Angle about x is {}".format(angle_0))
+    print("Angle about y is {}".format(angle_1))
+    print("Angle about z is {}".format(angle_2))
     ICP.draw_registration_result(source, target, reg_p2p.transformation)
     tmp = reg_p2p.transformation
 
