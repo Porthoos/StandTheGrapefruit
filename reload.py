@@ -64,9 +64,10 @@ def load_ply(path, target):
         #     continue
         # f_w.writelines(i)
         # count += 1
-        if x < -200 or x > 250 or y < -200 or y > 300:
+
+        if x > 650 or y > 675:
             continue
-        if r < 100 and g < 100 and b < 100:
+        if r < 150 and g < 150 and b < 150:
             continue
         if z > 900:
             continue
@@ -101,6 +102,86 @@ def load_ply(path, target):
             file_data += line
     with open(target,"w") as f:
         f.write(file_data)
+
+
+def load_ply_gemini(path, target):
+    count = 0
+    f = open(path, 'r')
+    f_w = open(target, 'w')
+    data = f.readlines()
+    for i in data[0:]:
+        f_w.writelines(i)
+        if i == "end_header\n":
+            break
+
+    for i in data[15:]:
+        tmp = i.split(" ")
+        r = eval(tmp[3])
+        g = eval(tmp[4])
+        b = eval(tmp[5])
+        x = eval(tmp[0])
+        z = eval(tmp[1])
+        y = eval(tmp[2])
+
+        # if r < 200 and g < 200 and b > 50:
+        #     continue
+        # f_w.writelines(i)
+        # count += 1
+
+        # if r < 80 and g < 80 and b < 80:
+        #     continue
+        # elif r < 80 and g < 80 and b > 200:
+        #     continue
+        # elif r < 80 and g > 200 and b < 80:
+        #     continue
+        # f_w.writelines(i)
+        # count += 1
+
+        # if x > 650 or y > 675:
+        #     continue
+        # if r < 150 and g < 150 and b < 150:
+        #     continue
+        # if z > 900:
+        #     continue
+        # if r > b and g > b:
+        #     f_w.writelines(i)
+        #     count += 1
+
+        if z == 0 or x == 0 or y == 0:
+            continue
+        if y > 0.52:
+            continue
+        f_w.writelines(i)
+        count += 1
+        # if r>=150 and g>=1 and b<=100:
+        #     f_w.writelines(i)
+        #     count += 1
+        # if r >= 150 and g >= 1 and b <= 100:
+        #     f_w.writelines(i)
+        #     count += 1
+
+    f.close()
+    f_w.close()
+
+    f_tr = open(target, 'r')
+    # f_tw = open(target, 'w')
+    data = f_tr.readlines()
+    for i in data[0:]:
+        if i.__contains__("element vertex"):
+            num = i.split(" ")
+            # i = i.replace(num[2], str(count))
+            # f_tw.write(i)
+            f_tr.close()
+            break
+
+    file_data = ""
+    with open(target, "r") as f:
+        for line in f:
+            line = line.replace(num[2],str(count)+"\n")
+            file_data += line
+    with open(target,"w") as f:
+        f.write(file_data)
+
 
 def remove_unreliable_point(path, target):
     points = PyntCloud.from_file(path).points
@@ -183,6 +264,30 @@ def remove_color(path, target):
         i += '\n'
         # i = i.join("\n")
         f_w.writelines(i)
+
+
+def remove_color_gemini(path, target):
+    f = open(path, 'r')
+    f_w = open(target, 'w')
+    data = f.readlines()
+    for i in data[0:7]:
+        f_w.writelines(i)
+    f_w.writelines("end_header\n")
+    for i in data[14:]:
+        tmp = i.split(" ")
+        # print(tmp)
+        # print(type(i))
+        # i = i.replace(tmp[3], "")
+        # i = i.replace(tmp[4], "")
+        # i = i.replace(tmp[5], "")
+        # i = str(tmp[:3])
+
+        i = " ".join(tmp[:3])
+        i += '\n'
+        # i = i.join("\n")
+        f_w.writelines(i)
+
+
 
 # path = 'models/test.ply'
 # count = 0

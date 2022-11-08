@@ -32,7 +32,7 @@ import move_to_origin
 # path2 = 'models/data9/test_tmp2.ply'
 
 path1 = 'models/model/test_tmp_model.ply'
-path2 = 'models/data10/test_tmp2.ply'
+path2 = 'models/test_gemini/after2.ply'
 
 point_cloud_pynt1 = PyntCloud.from_file(path1)
 points1 = point_cloud_pynt1.points
@@ -89,6 +89,7 @@ for i in range(12) :
         continue
     path1 = 'models/model/test_tmp_model.ply'
     path2 = 'models/data' + str(i) + '/test_tmp2.ply'
+    path2 = 'models/test_gemini/after2.ply'
 
     point_cloud_pynt1 = PyntCloud.from_file(path1)
     points1 = point_cloud_pynt1.points
@@ -139,6 +140,7 @@ for i in range(12) :
     source = ICP.o3d.io.read_point_cloud(path1+"_at_origin", format='ply')
     target = ICP.o3d.io.read_point_cloud(path2+"_at_origin", format='ply')
 
+    show0 = ICP.o3d.io.read_point_cloud(path2+"_at_origin", format='ply')
     ICP.draw_registration_result(source, target, [[1., 0., 0., 0.], [0., 1., 0., 0.], [0., 0., 1., 0.], [0., 0., 0., 1.]])
     # ICP.draw_registration_result(source, target, matrix1)
     # ICP.draw_registration_result(target, source, matrix1)
