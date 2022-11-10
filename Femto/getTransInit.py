@@ -97,9 +97,23 @@ for i in range(12) :
 
     point_cloud_pynt2 = PyntCloud.from_file(path2)
     points2 = point_cloud_pynt2.points
-    w2, rows2, center2 = PCA1.PCA(points2)
+    w2, rows2_1, center2 = PCA1.PCA(points2)
 
+    print('--------------------------')
 
+    print(rows2_1)
+    print(center2)
+
+    rows2=[rows2_1[1],rows2_1[2],rows2_1[0]]
+
+    # w = center2[2]
+    # center2[2] = center2[1]
+    # center2[1] = w
+
+    print(rows2)
+    print(center2)
+
+    print('--------------------------')
 
     # print(type(rows1))
     print(rows1)
