@@ -62,11 +62,19 @@ path0_1 =   source + '/RGBDPoints_20221020175652_new.ply'
 path1_1 =   source + '/RGBDPoints_20221020175723_new.ply'
 path2_1 =   source + '/RGBDPoints_20221020175736_new.ply'
 path3_1 =   source + '/RGBDPoints_20221020175804_new.ply'
+
+path = 'models/test_gemini2/after3.ply_with_row'
+path22 = 'models/test_gemini/after2.ply'
+path_l = 'models/test_gemini3/PointCloud_Gemini_20221110_153620.ply'
+path_r = 'models/test_gemini4/RGBDPoints_20221110155344.ply'
 # dr.load_ply(path0, path0_1)
 # dr.load_ply(path1, path1_1)
 # dr.load_ply(path2, path2_1)
 # dr.load_plyn(path3, path3_1)
-
+show_l = ICP.o3d.io.read_point_cloud(path_l, format='ply')
+show = ICP.o3d.io.read_point_cloud(path, format='ply')
+show22 = ICP.o3d.io.read_point_cloud(path22, format='ply')
+show_r = ICP.o3d.io.read_point_cloud(path_r, format='ply')
 show0 = ICP.o3d.io.read_point_cloud(path0_1, format='ply')
 show1 = ICP.o3d.io.read_point_cloud(path1_1, format='ply')
 show2 = ICP.o3d.io.read_point_cloud(path2_1, format='ply')
@@ -74,7 +82,7 @@ show3 = ICP.o3d.io.read_point_cloud(path3_1, format='ply')
 
 # show2_1 = ICP.o3d.io.read_point_cloud(path3_1, format='ply')
 # o3d.visualization.draw_geometries([show2_1])
-o3d.visualization.draw_geometries([show3])
+o3d.visualization.draw_geometries([show])
 
 
 

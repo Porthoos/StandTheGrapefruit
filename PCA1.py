@@ -56,7 +56,7 @@ def PCA(data, correlation=False, sort=True):
 
 
 def main():
-    point_cloud_pynt = PyntCloud.from_file("models/test2.ply")
+    point_cloud_pynt = PyntCloud.from_file("C:/Users/jdy/Documents/GitHub/StandTheGrapefruit/Femto/models/test_gemini/after3.ply")
     point_cloud_o3d = point_cloud_pynt.to_instance("open3d", mesh=False)
     o3d.visualization.draw_geometries([point_cloud_o3d],width=800,height=600)  # 显示原始点云
     points = point_cloud_pynt.points
@@ -67,6 +67,7 @@ def main():
     print('the main orientation of this pointcloud is: ', point_cloud_vector, 'and', w[0])
     print('the second orientation of this pointcloud is:', u[:, 1])
     print('the third orientation of this pointcloud is:', u[:, 2])
+    # o3d.visualization.draw_geometries([point_cloud_o3d,point_cloud_vector], width=800, height=600)
 
     # # 循环计算每个点的法向量
     # pcd_tree = o3d.geometry.KDTreeFlann(point_cloud_o3d)
