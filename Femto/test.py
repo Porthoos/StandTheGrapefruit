@@ -63,7 +63,7 @@ path1_1 =   source + '/RGBDPoints_20221020175723_new.ply'
 path2_1 =   source + '/RGBDPoints_20221020175736_new.ply'
 path3_1 =   source + '/RGBDPoints_20221020175804_new.ply'
 
-path = 'models/test_gemini2/after3.ply_with_row'
+path = 'models/kinect2/test_tmp2_1.ply'
 path22 = 'models/test_gemini/after2.ply'
 path_l = 'models/test_gemini3/PointCloud_Gemini_20221110_153620.ply'
 path_r = 'models/test_gemini4/RGBDPoints_20221110155344.ply'

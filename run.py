@@ -1,13 +1,9 @@
-import numpy as np
+import os
 
 import PointCloud
-import os
 import reload
-import PCA1
-import draw_row
-from pyntcloud import PyntCloud
 
-temp = 'models/3d'
+temp = 'models/kinect1'
 path1 =   temp + '/test_tmp.ply'
 path2 =   temp + '/test_tmp1.ply'
 path3 =   temp + '/test_tmp2.ply'

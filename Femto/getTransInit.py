@@ -32,7 +32,7 @@ import move_to_origin
 # path2 = 'models/data9/test_tmp2.ply'
 
 path1 = 'models/model/test_tmp_model.ply'
-path2 = 'models/test_gemini/after3.ply'
+path2 = 'models/kinect2/test_tmp2_1.ply'
 
 point_cloud_pynt1 = PyntCloud.from_file(path1)
 points1 = point_cloud_pynt1.points
@@ -89,7 +89,7 @@ for i in range(12) :
         continue
     path1 = 'models/model/test_tmp_model.ply'
     path2 = 'models/data' + str(i) + '/test_tmp2.ply'
-    path2 = 'models/test_gemini/after3.ply'
+    path2 = 'models/kinect2/test_tmp2_1.ply'
 
     point_cloud_pynt1 = PyntCloud.from_file(path1)
     points1 = point_cloud_pynt1.points
@@ -104,7 +104,7 @@ for i in range(12) :
     print(rows2_1)
     print(center2)
 
-    rows2=[rows2_1[1],rows2_1[2],rows2_1[0]]
+    # rows2=[rows2_1[1],rows2_1[2],rows2_1[0]]
 
     # w = center2[2]
     # center2[2] = center2[1]
