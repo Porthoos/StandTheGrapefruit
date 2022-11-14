@@ -5,6 +5,7 @@ import PCA1
 import ICP
 import draw_row
 import move_to_origin
+import R2euler as r
 
 # Angle_X = 0
 # Angle_Y = 0
@@ -32,7 +33,7 @@ import move_to_origin
 # path2 = 'models/data9/test_tmp2.ply'
 
 path1 = 'models/model/test_tmp_model.ply'
-path2 = 'models/kinect2/test_tmp2_1.ply'
+path2 = 'models/kinect/test_tmp2_1.ply'
 
 point_cloud_pynt1 = PyntCloud.from_file(path1)
 points1 = point_cloud_pynt1.points
@@ -89,7 +90,7 @@ for i in range(12) :
         continue
     path1 = 'models/model/test_tmp_model.ply'
     path2 = 'models/data' + str(i) + '/test_tmp2.ply'
-    path2 = 'models/kinect2/test_tmp2_1.ply'
+    path2 = 'models/kinect/test_tmp2_1.ply'
 
     point_cloud_pynt1 = PyntCloud.from_file(path1)
     points1 = point_cloud_pynt1.points
@@ -185,6 +186,10 @@ for i in range(12) :
     print(reg_p2p)
     print("Transformation is:")
     print(reg_p2p.transformation)
+    angle_0, angle_1, angle_2 = r.r2euler(reg_p2p.transformation)
+    print("Angle about x is {}".format(angle_0))
+    print("Angle about y is {}".format(angle_1))
+    print("Angle about z is {}".format(angle_2))
     ICP.draw_registration_result(source, target, reg_p2p.transformation)
     tmp = reg_p2p.transformation
 
