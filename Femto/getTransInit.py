@@ -85,9 +85,9 @@ print(matrix1)
 # R = R2 * R1 = q * pT
 # q = R * p = R2 * R1 * p = R2 * I
 
-for i in range(12) :
-    if i == 0 or i == 7:
-        continue
+for i in range(1):
+    # if i == 0 or i == 7:
+    #     continue
     path1 = 'models/model/test_tmp_model.ply'
     path2 = 'models/data' + str(i) + '/test_tmp2.ply'
     path2 = 'models/kinect/test_tmp2_1.ply'
@@ -202,3 +202,26 @@ for i in range(12) :
     # ICP.draw_registration_result(target, source, matrix1)
     # ICP.draw_registration_result(source, target, matrix2)
     # ICP.draw_registration_result(target, source, matrix2)
+
+
+#-------------------------------------------坐标转移部分
+#TODO: 确定标准柚子模型的初始位姿
+camera_center_X = 0
+camera_center_Y = 0.7
+camera_center_Z = 0.8
+
+angle = [angle_0, angle_1, angle_2]
+def xyz_trans(data, angle):
+    x = camera_center_X - data[0]/1000
+    y = camera_center_Y + data[2]/1000
+    z = camera_center_Z - data[1]/1000
+    angle_x = 0 -angle[0]
+    angle_y = 180 + angle[1]
+    angle_z = 90 -angle[2]
+    return x, y, z, angle_x, angle_y, angle_z
+
+x0, y0, z0, angle_x, angle_y, angle_z= xyz_trans(center2, angle)
+print("position is: (" + str(x0) + ', ' + str(y0) + ', ' + str(z0) + ')')
+print('angle is: (' + str(angle_x) + ', ' + str(angle_y) + ', ' + str(angle_z) + ')')
+
+#----------------------------------------------------------------
