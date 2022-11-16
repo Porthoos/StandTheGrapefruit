@@ -3,12 +3,12 @@ import os
 import PointCloud
 import reload_mzy as reload
 
-temp = 'models/kinect2'
-path1 =   temp + '/test_tmp.ply'
-path2 =   temp + '/test_tmp1.ply'
-path3 =   temp + '/test_tmp2.ply'
-path3_1 = temp + '/test_tmp2_1.ply'
-path4 =   temp + '/test_tmp3.ply'
+temp = 'models/kinect4'
+path1 =   temp + '/test.ply'
+path2 =   temp + '/test1.ply'
+path3 =   temp + '/test2.ply'
+path3_1 = temp + '/test2_1.ply'
+path4 =   temp + '/test3.ply'
 
 # print(111)
 # if os.path.exists(path1):
@@ -21,6 +21,7 @@ path4 =   temp + '/test_tmp3.ply'
 # pcl2 = PointCloud.Cloud(file=path1)
 #
 print(1111)
+# pcl1 = PointCloud.Cloud(path1)
 reload.load_ply(path1, path2)
 reload.remove_color(path2, path3)
 

@@ -33,7 +33,7 @@ import R2euler as r
 # path2 = 'models/data9/test_tmp2.ply'
 
 path1 = 'models/model/test_tmp_model.ply'
-path2 = 'models/kinect/test_tmp2_1.ply'
+path2 = 'models/kinect4/test2_1.ply'
 
 point_cloud_pynt1 = PyntCloud.from_file(path1)
 points1 = point_cloud_pynt1.points
@@ -85,123 +85,123 @@ print(matrix1)
 # R = R2 * R1 = q * pT
 # q = R * p = R2 * R1 * p = R2 * I
 
-for i in range(1):
-    # if i == 0 or i == 7:
-    #     continue
-    path1 = 'models/model/test_tmp_model.ply'
-    path2 = 'models/data' + str(i) + '/test_tmp2.ply'
-    path2 = 'models/kinect/test_tmp2_1.ply'
+# for i in range(1):
+#     if i == 0 or i == 7:
+#         continue
+path1 = 'models/model/test_tmp_model.ply'
+# path2 = 'models/data' + str(i) + '/test_tmp2.ply'
+path2 = 'models/kinect4/test2.ply'
 
-    point_cloud_pynt1 = PyntCloud.from_file(path1)
-    points1 = point_cloud_pynt1.points
-    w1, rows1, center1 = PCA1.PCA(points1)
+point_cloud_pynt1 = PyntCloud.from_file(path1)
+points1 = point_cloud_pynt1.points
+w1, rows1, center1 = PCA1.PCA(points1)
 
-    point_cloud_pynt2 = PyntCloud.from_file(path2)
-    points2 = point_cloud_pynt2.points
-    w2, rows2_1, center2 = PCA1.PCA(points2)
+point_cloud_pynt2 = PyntCloud.from_file(path2)
+points2 = point_cloud_pynt2.points
+w2, rows2, center2 = PCA1.PCA(points2)
 
-    print('--------------------------')
+print('--------------------------')
 
-    print(rows2_1)
-    print(center2)
+print(rows2)
+print(center2)
 
-    # rows2=[rows2_1[1],rows2_1[2],rows2_1[0]]
+# rows2=[rows2_1[1],rows2_1[2],rows2_1[0]]
 
-    # w = center2[2]
-    # center2[2] = center2[1]
-    # center2[1] = w
+# w = center2[2]
+# center2[2] = center2[1]
+# center2[1] = w
 
-    print(rows2)
-    print(center2)
+print(rows2)
+print(center2)
 
-    print('--------------------------')
+print('--------------------------')
 
-    # print(type(rows1))
-    print(rows1)
-    print()
-    # print(np.transpose(rows1))
-    # print()
-    print(rows2)
-    print()
-    # print(np.transpose(rows2))
+# print(type(rows1))
+print(rows1)
+print()
+# print(np.transpose(rows1))
+# print()
+print(rows2)
+print()
+# print(np.transpose(rows2))
 
-    print(np.matmul(rows2, np.transpose(rows1)))
-    R = np.matmul(rows2, np.transpose(rows1))
-    R1 = np.matmul([[1, 0, 0], [0, 1, 0], [0, 0, 1]], np.transpose(rows2))
-    print(center1)
-    print(center2)
+print(np.matmul(rows2, np.transpose(rows1)))
+R = np.matmul(rows2, np.transpose(rows1))
+R1 = np.matmul([[1, 0, 0], [0, 1, 0], [0, 0, 1]], np.transpose(rows2))
+print(center1)
+print(center2)
 
-    matrix1 = [[R1[0][0], R1[1][0], R1[2][0], 0],
-               [R1[0][1], R1[1][1], R1[2][1], 0],
-               [R1[0][2], R1[1][2], R1[2][2], 0],
+matrix1 = [[R1[0][0], R1[1][0], R1[2][0], 0],
+           [R1[0][1], R1[1][1], R1[2][1], 0],
+           [R1[0][2], R1[1][2], R1[2][2], 0],
+           [0, 0, 0, 1]]
+matrix2 = [[R1[0][0], R1[0][1], R1[0][2], 0],
+           [R1[1][0], R1[1][1], R1[1][2], 0],
+           [R1[2][0], R1[2][1], R1[2][2], 0],
+           [0, 0, 0, 1]]
+neg_matrix2 = [[-R1[0][0], -R1[0][1], -R1[0][2], 0],
+               [-R1[1][0], -R1[1][1], -R1[1][2], 0],
+               [-R1[2][0], -R1[2][1], -R1[2][2], 0],
                [0, 0, 0, 1]]
-    matrix2 = [[R1[0][0], R1[0][1], R1[0][2], 0],
-               [R1[1][0], R1[1][1], R1[1][2], 0],
-               [R1[2][0], R1[2][1], R1[2][2], 0],
-               [0, 0, 0, 1]]
-    neg_matrix2 = [[-R1[0][0], -R1[0][1], -R1[0][2], 0],
-                   [-R1[1][0], -R1[1][1], -R1[1][2], 0],
-                   [-R1[2][0], -R1[2][1], -R1[2][2], 0],
-                   [0, 0, 0, 1]]
-    print(matrix1)
+print(matrix1)
 
-    draw_row.change_dly(path1, path1+"_with_row", rows1, center1)
-    draw_row.change_dly(path2, path2+"_with_row", rows2, center2)
+draw_row.change_dly(path1, path1+"_with_row", rows1, center1)
+draw_row.change_dly(path2, path2+"_with_row", rows2, center2)
 
-    draw_row.draw_only_row(path1, path1+"_only_row", rows1, center1)
-    draw_row.draw_only_row(path2, path2+"_only_row", rows2, center2)
+draw_row.draw_only_row(path1, path1+"_only_row", rows1, center1)
+draw_row.draw_only_row(path2, path2+"_only_row", rows2, center2)
 
-    move_to_origin.move(path1, path1+"_at_origin", [[1,0,0],[0,1,0],[0,0,1]], center1)
-    move_to_origin.move(path2, path2+"_at_origin", rows2, center2)
+move_to_origin.move(path1, path1+"_at_origin", [[1,0,0],[0,1,0],[0,0,1]], center1)
+move_to_origin.move(path2, path2+"_at_origin", rows2, center2)
 
-    source = ICP.o3d.io.read_point_cloud(path1+"_at_origin", format='ply')
-    target = ICP.o3d.io.read_point_cloud(path2+"_at_origin", format='ply')
+source = ICP.o3d.io.read_point_cloud(path1+"_at_origin", format='ply')
+target = ICP.o3d.io.read_point_cloud(path2+"_at_origin", format='ply')
 
-    show0 = ICP.o3d.io.read_point_cloud(path2+"_at_origin", format='ply')
-    ICP.draw_registration_result(source, target, [[1., 0., 0., 0.], [0., 1., 0., 0.], [0., 0., 1., 0.], [0., 0., 0., 1.]])
-    # ICP.draw_registration_result(source, target, matrix1)
-    # ICP.draw_registration_result(target, source, matrix1)
-    ICP.draw_registration_result(source, target, matrix2)
-    ICP.draw_registration_result(source, target, neg_matrix2)
-    # ICP.draw_registration_result(target, source, matrix2)
+show0 = ICP.o3d.io.read_point_cloud(path2+"_at_origin", format='ply')
+ICP.draw_registration_result(source, target, [[1., 0., 0., 0.], [0., 1., 0., 0.], [0., 0., 1., 0.], [0., 0., 0., 1.]])
+# ICP.draw_registration_result(source, target, matrix1)
+# ICP.draw_registration_result(target, source, matrix1)
+ICP.draw_registration_result(source, target, matrix2)
+ICP.draw_registration_result(source, target, neg_matrix2)
+# ICP.draw_registration_result(target, source, matrix2)
 
-    threshold = 10
-    reg_p2p = ICP.o3d.pipelines.registration.registration_icp(
-        source, target, threshold, matrix2,
-        ICP.o3d.pipelines.registration.TransformationEstimationPointToPoint(),
-        ICP.o3d.pipelines.registration.ICPConvergenceCriteria(max_iteration=100000)
-    )
-    print(reg_p2p)
-    print("Transformation is:")
-    print(reg_p2p.transformation)
-    ICP.draw_registration_result(source, target, reg_p2p.transformation)
-    tmp = reg_p2p.transformation
+threshold = 10
+reg_p2p = ICP.o3d.pipelines.registration.registration_icp(
+    source, target, threshold, matrix2,
+    ICP.o3d.pipelines.registration.TransformationEstimationPointToPoint(),
+    ICP.o3d.pipelines.registration.ICPConvergenceCriteria(max_iteration=100000)
+)
+print(reg_p2p)
+print("Transformation is:")
+print(reg_p2p.transformation)
+ICP.draw_registration_result(source, target, reg_p2p.transformation)
+tmp = reg_p2p.transformation
 
-    threshold = 10
-    reg_p2p = ICP.o3d.pipelines.registration.registration_icp(
-        source, target, threshold, neg_matrix2,
-        ICP.o3d.pipelines.registration.TransformationEstimationPointToPoint(),
-        ICP.o3d.pipelines.registration.ICPConvergenceCriteria(max_iteration=100000)
-    )
-    print(reg_p2p)
-    print("Transformation is:")
-    print(reg_p2p.transformation)
-    angle_0, angle_1, angle_2 = r.r2euler(reg_p2p.transformation)
-    print("Angle about x is {}".format(angle_0))
-    print("Angle about y is {}".format(angle_1))
-    print("Angle about z is {}".format(angle_2))
-    ICP.draw_registration_result(source, target, reg_p2p.transformation)
-    tmp = reg_p2p.transformation
+threshold = 10
+reg_p2p = ICP.o3d.pipelines.registration.registration_icp(
+    source, target, threshold, neg_matrix2,
+    ICP.o3d.pipelines.registration.TransformationEstimationPointToPoint(),
+    ICP.o3d.pipelines.registration.ICPConvergenceCriteria(max_iteration=100000)
+)
+print(reg_p2p)
+print("Transformation is:")
+print(reg_p2p.transformation)
+angle_0, angle_1, angle_2 = r.r2euler(reg_p2p.transformation)
+print("Angle about x is {}".format(angle_0))
+print("Angle about y is {}".format(angle_1))
+print("Angle about z is {}".format(angle_2))
+ICP.draw_registration_result(source, target, reg_p2p.transformation)
+tmp = reg_p2p.transformation
 
-    # source = ICP.o3d.io.read_point_cloud(path1+"_with_row", format='ply')
-    # target = ICP.o3d.io.read_point_cloud(path2+"_with_row", format='ply')
-    # # target2 = ICP.o3d.io.read_point_cloud('models/data10/test_tmp2.ply', format='ply')
-    # threshold = 10
-    # ICP.draw_registration_result(source, target, [[1., 0., 0., 0.], [0., 1., 0., 0.], [0., 0., 1., 0.], [0., 0., 0., 1.]])
-    # ICP.draw_registration_result(source, target, matrix1)
-    # ICP.draw_registration_result(target, source, matrix1)
-    # ICP.draw_registration_result(source, target, matrix2)
-    # ICP.draw_registration_result(target, source, matrix2)
+# source = ICP.o3d.io.read_point_cloud(path1+"_with_row", format='ply')
+# target = ICP.o3d.io.read_point_cloud(path2+"_with_row", format='ply')
+# # target2 = ICP.o3d.io.read_point_cloud('models/data10/test_tmp2.ply', format='ply')
+# threshold = 10
+# ICP.draw_registration_result(source, target, [[1., 0., 0., 0.], [0., 1., 0., 0.], [0., 0., 1., 0.], [0., 0., 0., 1.]])
+# ICP.draw_registration_result(source, target, matrix1)
+# ICP.draw_registration_result(target, source, matrix1)
+# ICP.draw_registration_result(source, target, matrix2)
+# ICP.draw_registration_result(target, source, matrix2)
 
 
 #-------------------------------------------坐标转移部分
