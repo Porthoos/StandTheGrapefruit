@@ -1,9 +1,13 @@
 import os
 
+import numpy as np
+from pyntcloud import PyntCloud
+
 import PointCloud
+import draw_row
 import reload_mzy as reload
 
-temp = 'models/kinect4'
+temp = 'models/kinect6'
 path1 =   temp + '/test.ply'
 path2 =   temp + '/test1.ply'
 path3 =   temp + '/test2.ply'
@@ -19,7 +23,7 @@ path4 =   temp + '/test3.ply'
 # pcl = PointCloud.Cloud(file=path1, color=True)
 # print(1)
 # pcl2 = PointCloud.Cloud(file=path1)
-#
+
 print(1111)
 # pcl1 = PointCloud.Cloud(path1)
 reload.load_ply(path1, path2)
@@ -45,6 +49,16 @@ reload.remove_color(path2, path3)
 # draw_row.change_dly(path3, path4, rows, c)
 
 reload.remove_unreliable_point(path3, path3_1)
-pcl2 = PointCloud.Cloud(path3)
+# pcl2 = PointCloud.Cloud(path3_1)
+
+point_cloud_pynt1 = PyntCloud.from_file(path3_1)
+points = point_cloud_pynt1.points
+data_mean = np.mean(points, axis=0)
+
+
+row = reload.findxy(path3_1, path4)
+# draw_row.change_dly(path1, path1+"_with_row", rows1, center1)
+# print("##################")
+
 
 # pcl2 = PointCloud.Cloud('models/data7/test_tmp_model.ply')
