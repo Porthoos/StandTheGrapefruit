@@ -33,7 +33,7 @@ def xyz_trans(data, angle):
 
 
 path1 = 'models/model/test_tmp_model.ply'
-path2 = 'models/kinect6/test3.ply'
+path2 = 'models/kinect7/test3.ply'
 
 point_cloud_pynt1 = PyntCloud.from_file(path1)
 points1 = point_cloud_pynt1.points
@@ -44,7 +44,7 @@ points2 = point_cloud_pynt2.points
 w2, rows2, center2 = PCA1.PCA(points2)
 
 path1 = 'models/model/test_tmp_model.ply'
-path2 = 'models/kinect6/test2.ply'
+path2 = 'models/kinect7/test2.ply'
 
 point_cloud_pynt1 = PyntCloud.from_file(path1)
 points1 = point_cloud_pynt1.points
@@ -117,14 +117,17 @@ def findDirection(path, target):
     print("###################3")
     print(max_x, max_y)
     print(data_mean)
+
     row = [[(max_x - data_mean[0])/max, 0, (max_y - data_mean[2])/max],
            [0, -1, 0],
            [-(max_y - data_mean[2])/max, 0, (max_x - data_mean[0])/max]]
-    return row
-temp = 'models/kinect6'
+    answer = [(max_x - data_mean[0])/max, (max_y - data_mean[2])/max]
+    return row, answer
+temp = 'models/kinect7'
 path333 = temp + '/test2_1.ply'
 path444 =   temp + '/test3.ply'
-rows2 = findDirection(path333, path444)
+rows2, answer = findDirection(path333, path444)
+
 #rows2是拍摄出来的点云的特征值
 
 print('--------------------------')
@@ -158,11 +161,11 @@ neg_matrix2 = [[-R1[0][0], -R1[0][1], -R1[0][2], 0],
                [0, 0, 0, 1]]
 print(matrix1)
 
-draw_row.change_dly(path1, path1+"_with_row", rows1, center1)
-draw_row.change_dly(path2, path2+"_with_row", rows2, center2)
-
-draw_row.draw_only_row(path1, path1+"_only_row", rows1, center1)
-draw_row.draw_only_row(path2, path2+"_only_row", rows2, center2)
+# draw_row.change_dly(path1, path1+"_with_row", rows1, center1)
+# draw_row.change_dly(path2, path2+"_with_row", rows2, center2)
+# 
+# draw_row.draw_only_row(path1, path1+"_only_row", rows1, center1)
+# draw_row.draw_only_row(path2, path2+"_only_row", rows2, center2)
 
 move_to_origin.move(path1, path1+"_at_origin", [[1,0,0],[0,1,0],[0,0,1]], center1)
 move_to_origin.move(path2, path2+"_at_origin", rows2, center2)
@@ -212,6 +215,23 @@ print(222)
 # print("Transformation is:")
 # print(reg_p2p.transformation)
 
+# print('Final angle is: '+ str(math.atan()))
+x=np.array(answer)
+y=np.array([0,1])
+# 两个向量
+Lx=np.sqrt(x.dot(x))
+Ly=np.sqrt(y.dot(y))
+#相当于勾股定理，求得斜线的长度
+cos_angle=x.dot(y)/(Lx*Ly)
+#求得cos_sita的值再反过来计算，绝对长度乘以cos角度为矢量长度，初中知识。。
+# print(cos_angle)
+angle=np.arccos(cos_angle)
+angle2=angle*360/2/np.pi
+#变为角度
+if answer[0] > 0:
+    angle2 = -angle2
+print('Final angle is: '+ str( 90 + angle2))
+
 
 angle_0, angle_1, angle_2 = r.r2euler(reg_p2p.transformation)
 print("Angle about x is {}".format(angle_0))
@@ -251,6 +271,7 @@ angle = [angle_0, angle_1, angle_2]
 
 angle = [angle_0, angle_1, angle_2]
 x0, y0, z0, angle_x, angle_y, angle_z= xyz_trans(center2, angle)
+angle_trans(angle)
 print("position is: (" + str(x0) + ', ' + str(y0) + ', ' + str(z0) + ')')
 print('angle is: (' + str(angle_x) + ', ' + str(angle_y) + ', ' + str(angle_z) + ')')
 

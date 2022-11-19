@@ -56,67 +56,35 @@ def load_ply(path, target):
         z = eval(tmp[1])
         y = eval(tmp[2])
 
-        # if r < 200 and g < 200 and b > 50:
-        #     continue
-        # f_w.writelines(i)
-        # count += 1
-
-        # if r < 80 and g < 80 and b < 80:
-        #     continue
-        # elif r < 80 and g < 80 and b > 200:
-        #     continue
-        # elif r < 80 and g > 200 and b < 80:
-        #     continue
-        # f_w.writelines(i)
-        # count += 1
-        # if x < -200 or x > 250 or y < -200 or y > 300:
-        #     continue
-        # if r < 100 and g < 100 and b < 100:
-        #     continue
-
         if x > 300 or y > 275:
             continue
         if x < -300 or y < -275:
             continue
-        # if x > 200 or y > 175:
-        #     continue
-        # if x < -200 or y < -175:
-        #     continue
         if r < 150 and g < 150 and b < 150:
             continue
         if z > 760:
             continue
-        # if r > b and g > b:
         f_w.writelines(i)
         count += 1
-        # if r>=150 and g>=1 and b<=100:
-        #     f_w.writelines(i)
-        #     count += 1
-        # if r >= 150 and g >= 1 and b <= 100:
-        #     f_w.writelines(i)
-        #     count += 1
 
     f.close()
     f_w.close()
 
-    f_tr = open(target, 'r')
-    # f_tw = open(target, 'w')
-    data = f_tr.readlines()
-    for i in data[0:]:
-        if i.__contains__("element vertex"):
-            num = i.split(" ")
-            # i = i.replace(num[2], str(count))
-            # f_tw.write(i)
-            f_tr.close()
-            break
-
-    file_data = ""
-    with open(target, "r") as f:
-        for line in f:
-            line = line.replace(num[2],str(count)+"\n")
-            file_data += line
-    with open(target,"w") as f:
-        f.write(file_data)
+    # f_tr = open(target, 'r')
+    # data = f_tr.readlines()
+    # for i in data[0:]:
+    #     if i.__contains__("element vertex"):
+    #         num = i.split(" ")
+    #         f_tr.close()
+    #         break
+    #
+    # file_data = ""
+    # with open(target, "r") as f:
+    #     for line in f:
+    #         line = line.replace(num[2],str(count)+"\n")
+    #         file_data += line
+    # with open(target,"w") as f:
+    #     f.write(file_data)
 
 
 # 生成一个z轴相同的点云

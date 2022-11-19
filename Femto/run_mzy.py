@@ -7,7 +7,7 @@ import PointCloud
 import draw_row
 import reload_mzy as reload
 
-temp = 'models/kinect6'
+temp = 'models/kinect7'
 path1 =   temp + '/test.ply'
 path2 =   temp + '/test1.ply'
 path3 =   temp + '/test2.ply'
@@ -23,8 +23,8 @@ path4 =   temp + '/test3.ply'
 # pcl = PointCloud.Cloud(file=path1, color=True)
 # print(1)
 # pcl2 = PointCloud.Cloud(file=path1)
-
-print(1111)
+#
+# print(1111)
 # pcl1 = PointCloud.Cloud(path1)
 reload.load_ply(path1, path2)
 reload.remove_color(path2, path3)
