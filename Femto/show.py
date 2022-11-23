@@ -56,17 +56,23 @@ import open3d as o3d
 
 # path1 = 'models/model/test_tmp_model.ply'
 # path2 = 'models/model/test_tmp_model.ply_at_origin'
-path0 = 'models/model/test_tmp_model.ply'
-# path1 = 'models/kinect5/test2.ply'
-# path2 = 'models/kinect5/test2.ply_at_origin'
-path1 = 'models/kinect6/test2.ply'
+path0 = 'models/model/test_tmp_model.ply_at_origin'
+path1 = 'models/kinect5/test2.ply_at_origin'
+path2 = 'models/kinect6/test2.ply_at_origin'
+path0_0 = 'models/model/test_tmp_model.ply'
+path1_0 = 'models/kinect5/test2.ply'
+path2_0 = 'models/kinect6/test2.ply'
+# path2 = 'models/kinect6/test2.ply_at_origin'
 # path2 = 'models/kinect6/test2.ply'
 show0 = ICP.o3d.io.read_point_cloud(path0, format='ply')
 show1 = ICP.o3d.io.read_point_cloud(path1, format='ply')
-# o3d.visualization.draw_geometries([show0])
+show2 = ICP.o3d.io.read_point_cloud(path2, format='ply')
 
-# show2 = ICP.o3d.io.read_point_cloud(path2, format='ply')
-o3d.visualization.draw_geometries([show0, show1])
+show0_0 = ICP.o3d.io.read_point_cloud(path0_0, format='ply')
+show1_0 = ICP.o3d.io.read_point_cloud(path1_0, format='ply')
+show2_0 = ICP.o3d.io.read_point_cloud(path2_0, format='ply')
+
+o3d.visualization.draw_geometries([show0, show1, show2, show0_0, show1_0, show2_0])
 
 # show2 = ICP.o3d.io.read_point_cloud(path3, format='ply')
 # o3d.visualization.draw_geometries([show2])

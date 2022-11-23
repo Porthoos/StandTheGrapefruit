@@ -7,7 +7,7 @@ import PointCloud
 import draw_row
 import reload_mzy as reload
 
-temp = 'models/kinect7'
+temp = 'models/model0'
 path1 =   temp + '/test.ply'
 path2 =   temp + '/test1.ply'
 path3 =   temp + '/test2.ply'

@@ -42,6 +42,32 @@ def transform_z(z):
     ]
     return transformation
 
+# def r2euler(R):
+#     R = np.array(R)
+#     err = float(0.001)
+#
+#     if np.shape(R) != (4, 4):
+#         print("The size of R matrix is wrong")
+#         sys.exit(0)
+#     else:
+#         pass
+#
+#     beta = math.atan2(R[0, 2], math.sqrt((R[1, 2]) ** 2 + (R[2, 2]) ** 2))
+#
+#     if beta >= math.pi / 2 - err and beta <= math.pi / 2 + err:
+#         beta = math.pi / 2
+#         # alpha + gamma is fixed
+#         alpha = 0.0
+#         gamma = math.atan2(R[1, 0], R[1, 1])
+#     elif beta >= -(math.pi / 2) - err and beta <= -(math.pi / 2) + err:
+#         beta = -math.pi / 2
+#         # alpha - gamma is fixed
+#         alpha = 0.0
+#         gamma = math.atan2(R[1, 0], R[1, 1])
+#     else:
+#         alpha = math.atan2(-(R[1, 2]) / (math.cos(beta)), (R[2, 2]) / (math.cos(beta)))
+#         gamma = math.atan2(-(R[0, 1]) / (math.cos(beta)), (R[0, 0]) / (math.cos(beta)))
+#     return alpha, beta, gamma
 def r2euler(R):
     R = np.array(R)
     err = float(0.001)
@@ -52,23 +78,22 @@ def r2euler(R):
     else:
         pass
 
-    beta = math.atan2(R[0, 2], math.sqrt((R[1, 2]) ** 2 + (R[2, 2]) ** 2))
+    beta = math.atan2(-R[2, 0], math.sqrt((R[0, 0]) ** 2 + (R[1, 0]) ** 2))
 
     if beta >= math.pi / 2 - err and beta <= math.pi / 2 + err:
         beta = math.pi / 2
         # alpha + gamma is fixed
         alpha = 0.0
-        gamma = math.atan2(R[1, 0], R[1, 1])
+        gamma = math.atan2(R[0, 1], R[1, 1])
     elif beta >= -(math.pi / 2) - err and beta <= -(math.pi / 2) + err:
         beta = -math.pi / 2
         # alpha - gamma is fixed
         alpha = 0.0
-        gamma = math.atan2(R[1, 0], R[1, 1])
+        gamma = -math.atan2(R[0, 1], R[1, 1])
     else:
-        alpha = math.atan2(-(R[1, 2]) / (math.cos(beta)), (R[2, 2]) / (math.cos(beta)))
-        gamma = math.atan2(-(R[0, 1]) / (math.cos(beta)), (R[0, 0]) / (math.cos(beta)))
+        alpha = math.atan2((R[1, 0]) / (math.cos(beta)), (R[0, 0]) / (math.cos(beta)))
+        gamma = math.atan2((R[2, 1]) / (math.cos(beta)), (R[2, 2]) / (math.cos(beta)))
     return alpha, beta, gamma
-
 
 if __name__ == "__main__":
     RM = [[1., 0., 0., 0.], [0., 1., 0., 0.], [0., 0., 1., 0.], [0., 0., 0., 1.]]

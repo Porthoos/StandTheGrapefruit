@@ -33,7 +33,7 @@ def xyz_trans(data, angle):
 
 
 path1 = 'models/model/test_tmp_model.ply'
-path2 = 'models/kinect7/test3.ply'
+path2 = 'models/model0/test3.ply'
 
 point_cloud_pynt1 = PyntCloud.from_file(path1)
 points1 = point_cloud_pynt1.points
@@ -44,7 +44,7 @@ points2 = point_cloud_pynt2.points
 w2, rows2, center2 = PCA1.PCA(points2)
 
 path1 = 'models/model/test_tmp_model.ply'
-path2 = 'models/kinect7/test2.ply'
+path2 = 'models/model0/test2.ply'
 
 point_cloud_pynt1 = PyntCloud.from_file(path1)
 points1 = point_cloud_pynt1.points
@@ -123,7 +123,7 @@ def findDirection(path, target):
            [-(max_y - data_mean[2])/max, 0, (max_x - data_mean[0])/max]]
     answer = [(max_x - data_mean[0])/max, (max_y - data_mean[2])/max]
     return row, answer
-temp = 'models/kinect7'
+temp = 'models/model0'
 path333 = temp + '/test2_1.ply'
 path444 =   temp + '/test3.ply'
 rows2, answer = findDirection(path333, path444)
@@ -170,8 +170,10 @@ print(matrix1)
 move_to_origin.move(path1, path1+"_at_origin", [[1,0,0],[0,1,0],[0,0,1]], center1)
 move_to_origin.move(path2, path2+"_at_origin", rows2, center2)
 
-source = ICP.o3d.io.read_point_cloud(path1+"_at_origin", format='ply')
-target = ICP.o3d.io.read_point_cloud(path2+"_at_origin", format='ply')
+# source = ICP.o3d.io.read_point_cloud(path1+"_at_origin", format='ply')
+# target = ICP.o3d.io.read_point_cloud(path2+"_at_origin", format='ply')
+target = ICP.o3d.io.read_point_cloud(path1+"_at_origin", format='ply')
+source = ICP.o3d.io.read_point_cloud(path2+"_at_origin", format='ply')
 
 show0 = ICP.o3d.io.read_point_cloud(path2+"_at_origin", format='ply')
 ICP.draw_registration_result(source, target, [[1., 0., 0., 0.], [0., 1., 0., 0.], [0., 0., 1., 0.], [0., 0., 0., 1.]])
@@ -224,7 +226,7 @@ Ly=np.sqrt(y.dot(y))
 #相当于勾股定理，求得斜线的长度
 cos_angle=x.dot(y)/(Lx*Ly)
 #求得cos_sita的值再反过来计算，绝对长度乘以cos角度为矢量长度，初中知识。。
-# print(cos_angle)
+print(cos_angle)
 angle=np.arccos(cos_angle)
 angle2=angle*360/2/np.pi
 #变为角度
