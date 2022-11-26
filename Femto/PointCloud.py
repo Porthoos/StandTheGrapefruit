@@ -5,7 +5,7 @@ All rights reserved.
 Feel free to use and modify and if you like it give it a star.
 """
 
-from pyqtgraph.Qt import QtCore, QtGui
+# from pyqtgraph.Qt import QtCore, QtGui
 import pyqtgraph.opengl as gl
 import numpy as np
 from pykinect2.PyKinectV2 import *
@@ -14,7 +14,7 @@ from pykinect2 import PyKinectRuntime
 import mapper
 import time
 import cv2
-from cv2 import WINDOW_FREERATIO
+# from cv2 import WINDOW_FREERATIO
 import sys
 import os
 import ctypes
@@ -68,16 +68,16 @@ class Cloud:
         self._skeleton_point_cloud_points = None  # store skeleton cloud points for simultaneously showing
         self._simultaneously_point_cloud_points = None  # stack all the points
         self._skeleton_colors = np.asarray([[1, 0, 0], [0, 1, 0], [0, 0, 1], [1, 1, 0], [0, 1, 1], [1, 0, 1]], dtype=np.float32)  # skeleton color pallet
-        self._app = QtGui.QApplication([])  # Initialize app
-        self._w = gl.GLViewWidget()  # Initialize view widget
-        # Change view point
-        self._w.orbit(225, -30)
-        # self._w.pan(0, -2000, 0)  # make the camera fixed to a point
-        # self._w.opts['viewport'] = (0, 0, 960, 540)
-        self._w.showMaximized()  # show window maximized
-        # self._w.setMaximumSize(960, 540)
-        self._w.setWindowTitle('Kinect PointCloud')  # window title
-        self._w.show()  # show app
+        # self._app = QtGui.QApplication([])  # Initialize app
+        # self._w = gl.GLViewWidget()  # Initialize view widget
+        # # Change view point
+        # self._w.orbit(225, -30)
+        # # self._w.pan(0, -2000, 0)  # make the camera fixed to a point
+        # # self._w.opts['viewport'] = (0, 0, 960, 540)
+        # self._w.showMaximized()  # show window maximized
+        # # self._w.setMaximumSize(960, 540)
+        # self._w.setWindowTitle('Kinect PointCloud')  # window title
+        # self._w.show()  # show app
         # self._g = gl.GLGridItem()  # adds a grid to the 3d space
         # self._g.setSize(x=1500, y=1500, z=1500)
         # self._w.addItem(self._g)
@@ -88,7 +88,7 @@ class Cloud:
         self._start_gui = False  # Flag for stopping the main loop and exit when close
         self._dynamic_point_cloud = None  # Store the calculated point cloud points
         self._configurations = "configurations_input_window"  # cv2 window name for color and size
-        self.create_track_bars()  # create track bars
+        # self.create_track_bars()  # create track bars
         # check for multiple input flags or no input flags when using dynamic point cloud only
         if not self._simultaneously_point_cloud:
             if any([self._color_point_cloud and self._depth_point_cloud and self._body_index_cloud and self._skeleton_point_cloud,
@@ -113,6 +113,7 @@ class Cloud:
                     if self._cloud_file != "":
                         # check if file is not a txt and is a pcd file
                         if self._cloud_file[-4:] == '.pcd' or self._cloud_file[-4:] == '.ply':
+                            print(0)
                             self.visualize_file()
                         elif self._cloud_file[-4:] == '.txt':
                             self.init()  # Initialize the GL GUI
@@ -164,6 +165,7 @@ class Cloud:
         if self._cloud_file != "":
             # check if file is not a txt and is a pcd file
             if self._cloud_file[-4:] == '.pcd' or self._cloud_file[-4:] == '.ply':
+                print(1)
                 self.visualize_file()
             elif self._cloud_file[-4:] == '.txt':
                 self.init()  # Initialize the GL GUI
@@ -176,36 +178,36 @@ class Cloud:
                     print('[CloudPoint] Input has no valid file extension')
                 sys.exit()
 
-    def create_track_bars(self):
-        # Create window for track bars
-        cv2.namedWindow(self._configurations, WINDOW_FREERATIO)
-        cv2.createTrackbar("Size", self._configurations, 5, 350, self.nothing)
-        cv2.createTrackbar("SkeletonSize", self._configurations, 0, 350, self.nothing)
-        cv2.createTrackbar("Red", self._configurations, 255, 255, self.nothing)
-        cv2.createTrackbar("Green", self._configurations, 255, 255, self.nothing)
-        cv2.createTrackbar("Blue", self._configurations, 255, 255, self.nothing)
-        cv2.createTrackbar("Opacity", self._configurations, 255, 255, self.nothing)
-        cv2.createTrackbar("ColorOverlay", self._configurations, 0, 1, self.nothing)
-        cv2.createTrackbar("Color Cloud", self._configurations, 0, 1, self.nothing)
-        cv2.createTrackbar("Depth Cloud", self._configurations, 0, 1, self.nothing)
-        cv2.createTrackbar("Body Cloud", self._configurations, 0, 1, self.nothing)
-        cv2.createTrackbar("Skeleton Cloud", self._configurations, 0, 1, self.nothing)
-        cv2.createTrackbar("Simultaneously", self._configurations, 0, 1, self.nothing)
-        # update the positions
-        if self._color_point_cloud:
-            cv2.setTrackbarPos("Color Cloud", self._configurations, 1)
-        if self._depth_point_cloud:
-            cv2.setTrackbarPos("Depth Cloud", self._configurations, 1)
-        if self._body_index_cloud:
-            cv2.setTrackbarPos("Body Cloud", self._configurations, 1)
-        if self._skeleton_point_cloud:
-            cv2.setTrackbarPos("Skeleton Cloud", self._configurations, 1)
-        if self._simultaneously_point_cloud:
-            cv2.setTrackbarPos("Simultaneously", self._configurations, 1)
-            cv2.setTrackbarPos("SkeletonSize", self._configurations, 20)
-        if self._color_overlay:
-            cv2.setTrackbarPos("ColorOverlay", self._configurations, 1)
-            cv2.setTrackbarPos("Size", self._configurations, 30)
+    # def create_track_bars(self):
+    #     # Create window for track bars
+    #     cv2.namedWindow(self._configurations, WINDOW_FREERATIO)
+    #     cv2.createTrackbar("Size", self._configurations, 5, 350, self.nothing)
+    #     cv2.createTrackbar("SkeletonSize", self._configurations, 0, 350, self.nothing)
+    #     cv2.createTrackbar("Red", self._configurations, 255, 255, self.nothing)
+    #     cv2.createTrackbar("Green", self._configurations, 255, 255, self.nothing)
+    #     cv2.createTrackbar("Blue", self._configurations, 255, 255, self.nothing)
+    #     cv2.createTrackbar("Opacity", self._configurations, 255, 255, self.nothing)
+    #     cv2.createTrackbar("ColorOverlay", self._configurations, 0, 1, self.nothing)
+    #     cv2.createTrackbar("Color Cloud", self._configurations, 0, 1, self.nothing)
+    #     cv2.createTrackbar("Depth Cloud", self._configurations, 0, 1, self.nothing)
+    #     cv2.createTrackbar("Body Cloud", self._configurations, 0, 1, self.nothing)
+    #     cv2.createTrackbar("Skeleton Cloud", self._configurations, 0, 1, self.nothing)
+    #     cv2.createTrackbar("Simultaneously", self._configurations, 0, 1, self.nothing)
+    #     # update the positions
+    #     if self._color_point_cloud:
+    #         cv2.setTrackbarPos("Color Cloud", self._configurations, 1)
+    #     if self._depth_point_cloud:
+    #         cv2.setTrackbarPos("Depth Cloud", self._configurations, 1)
+    #     if self._body_index_cloud:
+    #         cv2.setTrackbarPos("Body Cloud", self._configurations, 1)
+    #     if self._skeleton_point_cloud:
+    #         cv2.setTrackbarPos("Skeleton Cloud", self._configurations, 1)
+    #     if self._simultaneously_point_cloud:
+    #         cv2.setTrackbarPos("Simultaneously", self._configurations, 1)
+    #         cv2.setTrackbarPos("SkeletonSize", self._configurations, 20)
+    #     if self._color_overlay:
+    #         cv2.setTrackbarPos("ColorOverlay", self._configurations, 1)
+    #         cv2.setTrackbarPos("Size", self._configurations, 30)
 
     def nothing(self, x):
         """
@@ -608,73 +610,76 @@ class Cloud:
         if not self._dynamic:
             self.create_points()
         self.load_data()  # load points for the first time
-        self._t = QtCore.QTimer()  # initialize the Qui time
+        # self._t = QtCore.QTimer()  # initialize the Qui time
         # self._t.timeout.connect(self.update)  # Initialize the update function
         self._t.start(10)  # import a delay
 
-    def visualize(self):
-        """
-        Starting the visualization in pyqtgraph
-        :return None
-        """
-        # start loop
-        self._start = True
-        while self._start:
-            # check for interactive display and version
-            if (sys.flags.interactive != 1) or not hasattr(QtCore, 'PYQT_VERSION'):
-                # check to break loop
-                if self._start_gui:
-                    break
-                # start app
-                QtGui.QApplication.instance().exec_()
-                self._start_gui = True
-            else:
-                self._start = False
-        self._start = False
-        cv2.destroyAllWindows()  # destroy track bar window and close application
+    # def visualize(self):
+    #     """
+    #     Starting the visualization in pyqtgraph
+    #     :return None
+    #     """
+    #     # start loop
+    #     self._start = True
+    #     while self._start:
+    #         # check for interactive display and version
+    #         if (sys.flags.interactive != 1) or not hasattr(QtCore, 'PYQT_VERSION'):
+    #             # check to break loop
+    #             if self._start_gui:
+    #                 break
+    #             # start app
+    #             QtGui.QApplication.instance().exec_()
+    #             self._start_gui = True
+    #         else:
+    #             self._start = False
+    #     self._start = False
+    #     cv2.destroyAllWindows()  # destroy track bar window and close application
 
     def visualize_file(self):
         """
         Handles the .pcd or .ply files visualization with Open3D
         :return None
         """
-        import matplotlib.pyplot as plt
-        self._w.close()  # close pyqtgraph window application
-        QtGui.QApplication.quit()  # close pyqtgraph application
+        # import matplotlib.pyplot as plt
+        # self._w.close()  # close pyqtgraph window application
+        # QtGui.QApplication.quit()  # close pyqtgraph application
         cv2.destroyAllWindows()
         # Check if file exists
         if os.path.exists(os.path.join(self._dir_path, self._cloud_file)):
-            vis = o3d.visualization.Visualizer()  # start visualizer
-            # vis = o3d.visualization
-            vis.create_window(width=768, height=432)  # init window
-            # add file geometry
-            vis.add_geometry(o3d.io.read_point_cloud(os.path.join(self._dir_path, self._cloud_file)))
-            opt = vis.get_render_option()  # get options
-            opt.background_color = np.asarray([0, 0, 0])  # background to black
-            view_control = vis.get_view_control()
-            view_control.rotate(0, -360)
-            vis.run()  # run visualization
-            vis.destroy_window()  # destroy window after closing the point cloud
-            sys.exit()  # exit the application
+            print(2222223)
+            # vis = o3d.visualization.Visualizer()  # start visualizer
+            # # vis = o3d.visualization
+            # vis.create_window(width=768, height=432)  # init window
+            # # add file geometry
+            # vis.add_geometry(o3d.io.read_point_cloud(os.path.join(self._dir_path, self._cloud_file)))
+            # opt = vis.get_render_option()  # get options
+            # opt.background_color = np.asarray([0, 0, 0])  # background to black
+            # view_control = vis.get_view_control()
+            # view_control.rotate(0, -360)
+            # vis.run()  # run visualization
+            # vis.destroy_window()  # destroy window after closing the point cloud
+            # sys.exit()  # exit the application
         else:
             # create and save file
+            print(222222)
             self.create_points()
             if self._cloud_file[-4:] == '.ply':
+                print(11111)
                 self.export_to_ply()
             if self._cloud_file[-4:] == '.pcd':
                 self.export_to_pcd()
-            vis = o3d.visualization.Visualizer()  # start visualizer
-            # vis = o3d.visualization
-            vis.create_window(width=768, height=432)  # init window
-            # add file geometry
-            vis.add_geometry(o3d.io.read_point_cloud(os.path.join(self._dir_path, self._cloud_file)))
-            opt = vis.get_render_option()  # get options
-            opt.background_color = np.asarray([0, 0, 0])  # background to black
-            view_control = vis.get_view_control()
-            view_control.rotate(0, -360)
-            vis.run()  # run visualization
-            vis.destroy_window()  # destroy window after closing the point cloud
-            sys.exit()  # exit the application
+            # vis = o3d.visualization.Visualizer()  # start visualizer
+            # # vis = o3d.visualization
+            # vis.create_window(width=768, height=432)  # init window
+            # # add file geometry
+            # vis.add_geometry(o3d.io.read_point_cloud(os.path.join(self._dir_path, self._cloud_file)))
+            # opt = vis.get_render_option()  # get options
+            # opt.background_color = np.asarray([0, 0, 0])  # background to black
+            # view_control = vis.get_view_control()
+            # view_control.rotate(0, -360)
+            # vis.run()  # run visualization
+            # vis.destroy_window()  # destroy window after closing the point cloud
+            # sys.exit()  # exit the application
 
     def export_to_ply(self):
         """
