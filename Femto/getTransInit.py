@@ -21,38 +21,17 @@ def angle_trans(angle):
     # return angle_x, angle_y, angle_z
 
 
-def xyz_trans(data, angle):
+def xyz_trans(data):
     x = camera_center_X - data[0]/1000
     y = camera_center_Y + data[2]/1000
     z = camera_center_Z - data[1]/1000
-    angle_x = 0 -angle[0] / math.pi * 180
-    angle_y = 180 + angle[2] / math.pi * 180
-    angle_z = 90 -angle[1] / math.pi * 180
-    return x, y, z, angle_x, angle_y, angle_z
+    return x, y, z
 
 def getTransInit_final():
-    path1 = 'models/model/test_tmp_model.ply'
-    path2 = 'models/kinect_tmp/test3.ply'
-
-    point_cloud_pynt1 = PyntCloud.from_file(path1)
-    points1 = point_cloud_pynt1.points
-    w1, rows1, center1 = PCA1.PCA(points1)
-
-    point_cloud_pynt2 = PyntCloud.from_file(path2)
-    points2 = point_cloud_pynt2.points
-    w2, rows2, center2 = PCA1.PCA(points2)
-
-    path1 = 'models/model/test_tmp_model.ply'
     path2 = 'models/kinect_tmp/test2.ply'
-
-    point_cloud_pynt1 = PyntCloud.from_file(path1)
-    points1 = point_cloud_pynt1.points
-    w1, rows1, center1 = PCA1.PCA(points1)
-
     point_cloud_pynt2 = PyntCloud.from_file(path2)
     points2 = point_cloud_pynt2.points
     w2, rows2, center2 = PCA1.PCA(points2)
-
     #-----------------------------
     def distance(x,y,z, data_mean):
         return math.sqrt(pow((x - data_mean[0]), 2)+pow((y - data_mean[2]),2)+pow((z - data_mean[1]),2))
@@ -127,69 +106,6 @@ def getTransInit_final():
     path444 =   temp + '/test3.ply'
     rows2, answer = findDirection(path333, path444)
 
-    #rows2是拍摄出来的点云的特征值
-
-    print('--------------------------')
-
-    print(rows2)
-    print(center2)
-
-    print('--------------------------')
-
-    # print(type(rows1))
-    print(rows1)
-    print()
-
-    print(np.matmul(rows2, np.transpose(rows1)))
-    R = np.matmul(rows2, np.transpose(rows1))
-    R1 = np.matmul([[1, 0, 0], [0, 1, 0], [0, 0, 1]], np.transpose(rows2))
-    print(center1)
-    print(center2)
-
-    matrix1 = [[R1[0][0], R1[1][0], R1[2][0], 0],
-               [R1[0][1], R1[1][1], R1[2][1], 0],
-               [R1[0][2], R1[1][2], R1[2][2], 0],
-               [0, 0, 0, 1]]
-    matrix2 = [[R1[0][0], R1[0][1], R1[0][2], 0],
-               [R1[1][0], R1[1][1], R1[1][2], 0],
-               [R1[2][0], R1[2][1], R1[2][2], 0],
-               [0, 0, 0, 1]]
-    neg_matrix2 = [[-R1[0][0], -R1[0][1], -R1[0][2], 0],
-                   [-R1[1][0], -R1[1][1], -R1[1][2], 0],
-                   [-R1[2][0], -R1[2][1], -R1[2][2], 0],
-                   [0, 0, 0, 1]]
-    print(matrix1)
-
-
-    move_to_origin.move(path1, path1+"_at_origin", [[1,0,0],[0,1,0],[0,0,1]], center1)
-    move_to_origin.move(path2, path2+"_at_origin", rows2, center2)
-
-    source = ICP.o3d.io.read_point_cloud(path1+"_at_origin", format='ply')
-    target = ICP.o3d.io.read_point_cloud(path2+"_at_origin", format='ply')
-
-    show0 = ICP.o3d.io.read_point_cloud(path2+"_at_origin", format='ply')
-    threshold = 10
-    reg_p2p = ICP.o3d.pipelines.registration.registration_icp(
-        source, target, threshold, matrix2,
-        ICP.o3d.pipelines.registration.TransformationEstimationPointToPoint(),
-        ICP.o3d.pipelines.registration.ICPConvergenceCriteria(max_iteration=100000)
-    )
-    print(reg_p2p)
-    print("Transformation is:")
-    print(reg_p2p.transformation)
-    # ICP.draw_registration_result(source, target, reg_p2p.transformation)
-    tmp = reg_p2p.transformation
-    print('第一次转置矩阵的角度')
-    angle_0, angle_1, angle_2 = r.r2euler(reg_p2p.transformation)
-    print("Angle about x is {}".format(angle_0))
-    print("Angle about y is {}".format(angle_1))
-    print("Angle about z is {}".format(angle_2))
-    # ICP.draw_registration_result(source, target, reg_p2p.transformation)
-    angle = [angle_0, angle_1, angle_2]
-    x0, y0, z0, angle_x, angle_y, angle_z= xyz_trans(center2, angle)
-    angle_trans(angle)
-    # print("position is: (" + str(x0) + ', ' + str(y0) + ', ' + str(z0) + ')')
-    # print('angle is: (' + str(angle_x) + ', ' + str(angle_y) + ', ' + str(angle_z) + ')')
 
     print(222)
     x=np.array(answer)
@@ -209,29 +125,12 @@ def getTransInit_final():
     if answer[0] > 0:
         angle_final = -angle_final + 90
     else:
-        angle_final += angle_final
+        angle_final = angle_final + 90
 
     print('Final angle is: '+ str( angle_final))
 
-
-
-    angle_0, angle_1, angle_2 = r.r2euler(reg_p2p.transformation)
-    print("Angle about x is {}".format(angle_0))
-    print("Angle about y is {}".format(angle_1))
-    print("Angle about z is {}".format(angle_2))
-    # ICP.draw_registration_result(source, target, reg_p2p.transformation)
-
-    tmp = reg_p2p.transformation
-
-
-    #-------------------------------------------坐标转移部分
-
-    angle = [angle_0, angle_1, angle_2]
-    angle = [angle_0, angle_1, angle_2]
-    x0, y0, z0, angle_x, angle_y, angle_z= xyz_trans(center2, angle)
-    angle_trans(angle)
+    x0, y0, z0= xyz_trans(center2)
     print("position is: (" + str(x0) + ', ' + str(y0) + ', ' + str(z0) + ')')
-    print('angle is: (' + str(angle_x) + ', ' + str(angle_y) + ', ' + str(angle_z) + ')')
 
     return x0, y0, z0, angle_final
     #----------------------------------------------------------------

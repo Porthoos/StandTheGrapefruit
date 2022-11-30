@@ -1,4 +1,4 @@
-import reload_Femto as reload
+# import reload_femto as reload
 import ICP
 import open3d as o3d
 # source = "C:/Users/jdy/Documents/GitHub/StandTheGrapefruit/Femto/xyzrgb"
@@ -77,6 +77,6 @@ import open3d as o3d
 # show2 = ICP.o3d.io.read_point_cloud(path3, format='ply')
 # o3d.visualization.draw_geometries([show2])
 
-path0 = 'models/kinect7/test2_1.ply'
+path0 = 'temp/femto_tmp/test2_1.ply'
 show0 = ICP.o3d.io.read_point_cloud(path0, format='ply')
 o3d.visualization.draw_geometries([show0])

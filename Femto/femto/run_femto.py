@@ -1,5 +1,7 @@
 import os
 # import PointCloud
+import time
+
 import reload_femto as reload
 
 temp = 'temp/femto_tmp/'
@@ -29,15 +31,16 @@ def movefile(srcfile, dstpath):  # 移动函数
         print("move %s -> %s" % (srcfile, dstpath + fname))
 
 
-src_dir = './'
-dst_dir = './move/'  # 目的路径记得加斜杠
-src_file_list = glob(src_dir + '*')  # glob获得路径下所有文件，可根据需要修改
-for srcfile in src_file_list:
-    movefile(srcfile, dst_dir)  # 移动文件
+# src_dir = './'
+# dst_dir = './move/'  # 目的路径记得加斜杠
+# src_file_list = glob(src_dir + '*')  # glob获得路径下所有文件，可根据需要修改
+# for srcfile in src_file_list:
+#     movefile(srcfile, dst_dir)  # 移动文件
 
 
 def shoot():
     while True:
+        time.sleep(5)
         if os.path.exists(path1):
             os.remove(path1)
         path = "C:/Users/jdy/Desktop/OrbbecViewer/output/PointCloud/"
@@ -46,12 +49,17 @@ def shoot():
             print("there is no file.")
         elif len(filelist) == 1:
             print("there is only one file.")
-            movefile(path, temp)
+            time.sleep(20)
+            print('test if sleep')
+            for f in filelist:
+                movefile(f, temp)
             break
         else:
             print("there are more than one file")
             for f in filelist:
                 os.remove(f)
+
+        # os.exit()
 
     # 直接读取ply文件
     # pcl = PointCloud.Cloud(file=path1, depth=True)

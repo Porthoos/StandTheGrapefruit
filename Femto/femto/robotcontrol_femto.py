@@ -3117,6 +3117,10 @@ def init_robot(robot, speed):
         # 设置关节运动的最大速度
         joint_maxvelc = (speed, speed, speed, speed, speed, speed)
         robot.set_joint_maxvelc(joint_maxvelc)
+        pos = (-0.060729, 0.534451, 0.569041)
+        rpy_xyz = (-178.82, 1.326767, -74.442490)
+        result = robot.move_to_target_in_cartesian(pos, rpy_xyz)
+        time.sleep(1)
         # 设置目标位置
         # pos = (0.42, 0.17, 0.7)
         # pos = (0,0.5,0.5)
@@ -3155,11 +3159,6 @@ def init_robot(robot, speed):
         # time.sleep(1)
 
 def move2Target(robot, x, y, z, angle_final):
-    pos = (-0.1146, 0.5014, 0.5516)
-    rpy_xyz = (-178.5611, -13.0098, -75.5979)
-    result = robot.move_to_target_in_cartesian(pos, rpy_xyz)
-    time.sleep(1)
-
     # 移动到重心处
 
     pos = (x, y, z)  # 重心位置
@@ -3189,6 +3188,36 @@ def move2Target(robot, x, y, z, angle_final):
     result = robot.move_to_target_in_cartesian(pos, rpy_xyz)
     time.sleep(1)
 
+
+def move2Target(robot, x, y, z, angle_final):
+    # 移动到重心处
+
+    pos = (x, y, z)  # 重心位置
+    new_pos = move2centroid(pos)
+    rpy_xyz = (0, 180, 90)  # 这个是指 绕x，y，z轴转多少度（逆时针是+，顺时针是-）。
+    # 位姿的xyz轴分别是 z轴是穿过轴心向外， y轴是原点到旋钮的射线，剩下一个是x轴
+    # 轴动到目标位置
+    result = robot.move_to_target_in_cartesian(new_pos, rpy_xyz)
+    time.sleep(1)
+    # robot.move_stop()
+    if result == RobotErrorType.RobotError_SUCC:
+        logger.info("轴动到目标位置成功。")
+    # pos = (-0.018623445129394525+0.05, 0.6598898895263672+0.03, -0.12471881103515625+0.1)
+    # rpy_xyz = (-1.5961386237285893, 179.99548277982362, 93.00238778084338)
+    print("###################################")
+    # pos = (-0.122373362159729, 0.5754870923042297, -0.11912280273437503)
+    rpy_xyz = (angle_final[0], angle_final[1], angle_final[2])
+    result = robot.move_to_target_in_cartesian(new_pos, rpy_xyz)
+    time.sleep(5)
+    robot.move_stop()
+    if result == RobotErrorType.RobotError_SUCC:
+        logger.info("轴动到目标位置成功。")
+
+    # 复位
+    pos = (-0.1146, 0.5014, 0.5516)
+    rpy_xyz = (-178.5611, -13.0098, -75.5979)
+    result = robot.move_to_target_in_cartesian(pos, rpy_xyz)
+    time.sleep(1)
 
 if __name__ == '__main__':
     # test_process_demo()

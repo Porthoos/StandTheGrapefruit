@@ -18,14 +18,8 @@ def shoot():
         os.remove(path1)
     pcl = PointCloud.Cloud(file=path1, depth=True)
     pcl = PointCloud.Cloud(file=path1, color=True)
-    pcl2 = PointCloud.Cloud(file=path1)
-    pcl1 = PointCloud.Cloud(path1)
 
 def reload_total():
     reload.load_ply(path1, path2)
     reload.remove_color(path2, path3)
     reload.remove_unreliable_point(path3, path3_1)
-    point_cloud_pynt1 = PyntCloud.from_file(path3_1)
-    points = point_cloud_pynt1.points
-    data_mean = np.mean(points, axis=0)
-    row = reload.findxy(path3_1, path4)

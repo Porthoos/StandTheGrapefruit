@@ -5,7 +5,7 @@ All rights reserved.
 Feel free to use and modify and if you like it give it a star.
 """
 
-from pyqtgraph.Qt import QtCore, QtGui
+# from pyqtgraph.Qt import QtCore, QtGui
 import pyqtgraph.opengl as gl
 import numpy as np
 from pykinect2.PyKinectV2 import *
@@ -68,8 +68,8 @@ class Cloud:
         self._skeleton_point_cloud_points = None  # store skeleton cloud points for simultaneously showing
         self._simultaneously_point_cloud_points = None  # stack all the points
         self._skeleton_colors = np.asarray([[1, 0, 0], [0, 1, 0], [0, 0, 1], [1, 1, 0], [0, 1, 1], [1, 0, 1]], dtype=np.float32)  # skeleton color pallet
-        self._app = QtGui.QApplication([])  # Initialize app
-        self._w = gl.GLViewWidget()  # Initialize view widget
+        # self._app = QtGui.QApplication([])  # Initialize app
+        # self._w = gl.GLViewWidget()  # Initialize view widget
         # Change view point
         self._w.orbit(225, -30)
         # self._w.pan(0, -2000, 0)  # make the camera fixed to a point
@@ -81,7 +81,7 @@ class Cloud:
         # self._g = gl.GLGridItem()  # adds a grid to the 3d space
         # self._g.setSize(x=1500, y=1500, z=1500)
         # self._w.addItem(self._g)
-        self._scatter = None  # Store GL Scatter handler
+        # self._scatter = None  # Store GL Scatter handler
         self._color = None  # Store color for each point
         self._t = None  # Store starting time for pointcloud
         self._start = True  # Flag for saving the main loop status
@@ -113,7 +113,8 @@ class Cloud:
                     if self._cloud_file != "":
                         # check if file is not a txt and is a pcd file
                         if self._cloud_file[-4:] == '.pcd' or self._cloud_file[-4:] == '.ply':
-                            self.visualize_file()
+                            print(1)
+                            # self.visualize_file()
                         elif self._cloud_file[-4:] == '.txt':
                             self.init()  # Initialize the GL GUI
                         else:
@@ -126,25 +127,27 @@ class Cloud:
                             sys.exit()
         else:
             if self._dynamic:
-                if  any([self._color_point_cloud and self._depth_point_cloud, self._color_point_cloud and self._body_index_cloud,
-                         self._color_point_cloud and self._skeleton_point_cloud, self._depth_point_cloud and self._body_index_cloud,
-                         self._depth_point_cloud and self._skeleton_point_cloud, self._body_index_cloud and self._skeleton_point_cloud]):
-                    self.init()  # Initialize the GL GUI
-                else:
-                    # check for multiple flag inputs
-                    print('[CloudPoint] Not Enough arguments, choose at least two methods of point clouds')
-                    print('Example 1 :\n pcl = Cloud(dynamic=True, color=True, depth=True, simultaneously=True) \n pcl.visualize()')
-                    print('Example 2 :\n pcl = Cloud(dynamic=True, color=True, body=True, simultaneously=True) \n pcl.visualize()')
-                    print('Example 3 :\n pcl = Cloud(dynamic=True, color=True, skeleton=True, simultaneously=True) \n pcl.visualize()')
-                    print('Example 4 :\n pcl = Cloud(dynamic=True, depth=True, body=True, simultaneously=True) \n pcl.visualize()')
-                    print('Example 5 :\n pcl = Cloud(dynamic=True, depth=True, skeleton=True, simultaneously=True) \n pcl.visualize()')
-                    print('Example 6 :\n pcl = Cloud(dynamic=True, body=True, skeleton=True, simultaneously=True) \n pcl.visualize()')
-                    print('Example 7 :\n pcl = Cloud(dynamic=True, color=True, depth=True, body=True, skeleton=True, simultaneously=True) \n pcl.visualize()')
-                    print('Example 8 :\n pcl = Cloud(dynamic=True, color=True, depth=True, skeleton=True, simultaneously=True) \n pcl.visualize()')
-                    print('Example 9 :\n pcl = Cloud(dynamic=True, color=True, depth=True, body=True, simultaneously=True) \n pcl.visualize()')
-                    print('Example 10 :\n pcl = Cloud(dynamic=True, color=True, skeleton=True, body=True, simultaneously=True) \n pcl.visualize()')
-                    print('Example 11 :\n pcl = Cloud(dynamic=True, depth=True, skeleton=True, body=True, simultaneously=True) \n pcl.visualize()')
-                    sys.exit()
+                fff = 1
+                # if  any([self._color_point_cloud and self._depth_point_cloud, self._color_point_cloud and self._body_index_cloud,
+                #          self._color_point_cloud and self._skeleton_point_cloud, self._depth_point_cloud and self._body_index_cloud,
+                #          self._depth_point_cloud and self._skeleton_point_cloud, self._body_index_cloud and self._skeleton_point_cloud]):
+                #
+                    # self.init()  # Initialize the GL GUI
+                # else:
+                #     # check for multiple flag inputs
+                #     print('[CloudPoint] Not Enough arguments, choose at least two methods of point clouds')
+                #     print('Example 1 :\n pcl = Cloud(dynamic=True, color=True, depth=True, simultaneously=True) \n pcl.visualize()')
+                #     print('Example 2 :\n pcl = Cloud(dynamic=True, color=True, body=True, simultaneously=True) \n pcl.visualize()')
+                #     print('Example 3 :\n pcl = Cloud(dynamic=True, color=True, skeleton=True, simultaneously=True) \n pcl.visualize()')
+                #     print('Example 4 :\n pcl = Cloud(dynamic=True, depth=True, body=True, simultaneously=True) \n pcl.visualize()')
+                #     print('Example 5 :\n pcl = Cloud(dynamic=True, depth=True, skeleton=True, simultaneously=True) \n pcl.visualize()')
+                #     print('Example 6 :\n pcl = Cloud(dynamic=True, body=True, skeleton=True, simultaneously=True) \n pcl.visualize()')
+                #     print('Example 7 :\n pcl = Cloud(dynamic=True, color=True, depth=True, body=True, skeleton=True, simultaneously=True) \n pcl.visualize()')
+                #     print('Example 8 :\n pcl = Cloud(dynamic=True, color=True, depth=True, skeleton=True, simultaneously=True) \n pcl.visualize()')
+                #     print('Example 9 :\n pcl = Cloud(dynamic=True, color=True, depth=True, body=True, simultaneously=True) \n pcl.visualize()')
+                #     print('Example 10 :\n pcl = Cloud(dynamic=True, color=True, skeleton=True, body=True, simultaneously=True) \n pcl.visualize()')
+                #     print('Example 11 :\n pcl = Cloud(dynamic=True, depth=True, skeleton=True, body=True, simultaneously=True) \n pcl.visualize()')
+                #     sys.exit()
             else:
                 # check for multiple flag inputs
                 print('[CloudPoint] Not Enough arguments, choose at least two methods of point clouds')
@@ -164,7 +167,8 @@ class Cloud:
         if self._cloud_file != "":
             # check if file is not a txt and is a pcd file
             if self._cloud_file[-4:] == '.pcd' or self._cloud_file[-4:] == '.ply':
-                self.visualize_file()
+                print(2)
+                # self.visualize_file()
             elif self._cloud_file[-4:] == '.txt':
                 self.init()  # Initialize the GL GUI
             else:
@@ -345,7 +349,7 @@ class Cloud:
             # Initialize color and plot the scatter points
             self._color = np.zeros((len(self._dynamic_point_cloud), 4), dtype=np.float32)
         self._color[:, :] = 1
-        self._scatter = gl.GLScatterPlotItem(pos=self._dynamic_point_cloud, size=self._size, color=self._color)  # create first scatter points
+        # self._scatter = gl.GLScatterPlotItem(pos=self._dynamic_point_cloud, size=self._size, color=self._color)  # create first scatter points
         self._w.addItem(self._scatter)  # add items
 
     def update(self):
@@ -593,11 +597,11 @@ class Cloud:
 
         # update the pyqtgraph cloud
         self._scatter.setData(pos=self._dynamic_point_cloud, color=self._color, size=self._size)
-
-        if self._color_overlay:
-            self._scatter.setGLOptions('opaque')  # enables depth and disables blending
-        else:
-            self._scatter.setGLOptions('additive')  # disables depth enables blending
+        #
+        # if self._color_overlay:
+        #     self._scatter.setGLOptions('opaque')  # enables depth and disables blending
+        # else:
+        #     self._scatter.setGLOptions('additive')  # disables depth enables blending
 
     def init(self):
         """
@@ -607,107 +611,108 @@ class Cloud:
         # check if the pointcloud is dynamically
         if not self._dynamic:
             self.create_points()
+        print(111)
         self.load_data()  # load points for the first time
-        self._t = QtCore.QTimer()  # initialize the Qui time
+        # self._t = QtCore.QTimer()  # initialize the Qui time
         # self._t.timeout.connect(self.update)  # Initialize the update function
         self._t.start(10)  # import a delay
 
-    def visualize(self):
-        """
-        Starting the visualization in pyqtgraph
-        :return None
-        """
-        # start loop
-        self._start = True
-        while self._start:
-            # check for interactive display and version
-            if (sys.flags.interactive != 1) or not hasattr(QtCore, 'PYQT_VERSION'):
-                # check to break loop
-                if self._start_gui:
-                    break
-                # start app
-                QtGui.QApplication.instance().exec_()
-                self._start_gui = True
-            else:
-                self._start = False
-        self._start = False
-        cv2.destroyAllWindows()  # destroy track bar window and close application
+    # def visualize(self):
+    #     """
+    #     Starting the visualization in pyqtgraph
+    #     :return None
+    #     """
+    #     # start loop
+    #     self._start = True
+    #     while self._start:
+    #         # check for interactive display and version
+    #         if (sys.flags.interactive != 1) or not hasattr(QtCore, 'PYQT_VERSION'):
+    #             # check to break loop
+    #             if self._start_gui:
+    #                 break
+    #             # start app
+    #             # QtGui.QApplication.instance().exec_()
+    #             self._start_gui = True
+    #         else:
+    #             self._start = False
+    #     self._start = False
+    #     cv2.destroyAllWindows()  # destroy track bar window and close application
 
-    def visualize_file(self):
-        """
-        Handles the .pcd or .ply files visualization with Open3D
-        :return None
-        """
-        import matplotlib.pyplot as plt
-        self._w.close()  # close pyqtgraph window application
-        QtGui.QApplication.quit()  # close pyqtgraph application
-        cv2.destroyAllWindows()
-        # Check if file exists
-        if os.path.exists(os.path.join(self._dir_path, self._cloud_file)):
-            vis = o3d.visualization.Visualizer()  # start visualizer
-            # vis = o3d.visualization
-            vis.create_window(width=768, height=432)  # init window
-            # add file geometry
-            vis.add_geometry(o3d.io.read_point_cloud(os.path.join(self._dir_path, self._cloud_file)))
-            opt = vis.get_render_option()  # get options
-            opt.background_color = np.asarray([0, 0, 0])  # background to black
-            view_control = vis.get_view_control()
-            view_control.rotate(0, -360)
-            vis.run()  # run visualization
-            vis.destroy_window()  # destroy window after closing the point cloud
-            sys.exit()  # exit the application
-        else:
-            # create and save file
-            self.create_points()
-            if self._cloud_file[-4:] == '.ply':
-                self.export_to_ply()
-            if self._cloud_file[-4:] == '.pcd':
-                self.export_to_pcd()
-            vis = o3d.visualization.Visualizer()  # start visualizer
-            # vis = o3d.visualization
-            vis.create_window(width=768, height=432)  # init window
-            # add file geometry
-            vis.add_geometry(o3d.io.read_point_cloud(os.path.join(self._dir_path, self._cloud_file)))
-            opt = vis.get_render_option()  # get options
-            opt.background_color = np.asarray([0, 0, 0])  # background to black
-            view_control = vis.get_view_control()
-            view_control.rotate(0, -360)
-            vis.run()  # run visualization
-            vis.destroy_window()  # destroy window after closing the point cloud
-            sys.exit()  # exit the application
+    # def visualize_file(self):
+    #     """
+    #     Handles the .pcd or .ply files visualization with Open3D
+    #     :return None
+    #     """
+    #     import matplotlib.pyplot as plt
+    #     self._w.close()  # close pyqtgraph window application
+    #     # QtGui.QApplication.quit()  # close pyqtgraph application
+    #     cv2.destroyAllWindows()
+    #     # Check if file exists
+    #     if os.path.exists(os.path.join(self._dir_path, self._cloud_file)):
+    #         vis = o3d.visualization.Visualizer()  # start visualizer
+    #         # vis = o3d.visualization
+    #         # vis.create_window(width=768, height=432)  # init window
+    #         # add file geometry
+    #         vis.add_geometry(o3d.io.read_point_cloud(os.path.join(self._dir_path, self._cloud_file)))
+    #         opt = vis.get_render_option()  # get options
+    #         opt.background_color = np.asarray([0, 0, 0])  # background to black
+    #         view_control = vis.get_view_control()
+    #         view_control.rotate(0, -360)
+    #         vis.run()  # run visualization
+    #         vis.destroy_window()  # destroy window after closing the point cloud
+    #         sys.exit()  # exit the application
+    #     else:
+    #         # create and save file
+    #         self.create_points()
+    #         if self._cloud_file[-4:] == '.ply':
+    #             self.export_to_ply()
+    #         if self._cloud_file[-4:] == '.pcd':
+    #             self.export_to_pcd()
+    #         vis = o3d.visualization.Visualizer()  # start visualizer
+    #         # vis = o3d.visualization
+    #         # vis.create_window(width=768, height=432)  # init window
+    #         # add file geometry
+    #         vis.add_geometry(o3d.io.read_point_cloud(os.path.join(self._dir_path, self._cloud_file)))
+    #         opt = vis.get_render_option()  # get options
+    #         opt.background_color = np.asarray([0, 0, 0])  # background to black
+    #         view_control = vis.get_view_control()
+    #         view_control.rotate(0, -360)
+    #         vis.run()  # run visualization
+    #         vis.destroy_window()  # destroy window after closing the point cloud
+    #         sys.exit()  # exit the application
 
-    def export_to_ply(self):
-        """
-        Inspired by https://github.com/bponsler/kinectToPly
-        Writes a kinect point cloud into a .ply file
-        return None
-        """
-        # assert that the points have been created
-        assert self._dynamic_point_cloud is not None, "Point Cloud has not been initialized"
-        assert self._cloud_file != "", "Specify text filename"
-        # stack data
-        data = np.column_stack((self._dynamic_point_cloud, self._color))
-        data = data[np.all(data != float('-inf'), axis=1)]  # remove -inf
-        # header format of ply file
-        header_lines = ["ply",
-                        "format ascii 1.0",
-                        "comment generated by: python",
-                        "element vertex {}".format(int(len(data))),
-                        "property float x",
-                        "property float y",
-                        "property float z",
-                        "property uchar red",
-                        "property uchar green",
-                        "property uchar blue",
-                        "end_header"]
-        # convert to string
-        data = '\n'.join('{} {} {} {} {} {}'.format('%.2f' % x[0], '%.2f' % x[1], '%.2f' % x[2], int(x[3]), int(x[4]), int(x[5])) for x in data)
-        header = '\n'.join(line for line in header_lines) + '\n'
-        # write file
-        file = open(os.path.join(self._dir_path, self._cloud_file), 'w')
-        file.write(header)
-        file.write(data)
-        file.close()
+    # def export_to_ply(self):
+    #     """
+    #     Inspired by https://github.com/bponsler/kinectToPly
+    #     Writes a kinect point cloud into a .ply file
+    #     return None
+    #     """
+    #     # assert that the points have been created
+    #     assert self._dynamic_point_cloud is not None, "Point Cloud has not been initialized"
+    #     assert self._cloud_file != "", "Specify text filename"
+    #     # stack data
+    #     data = np.column_stack((self._dynamic_point_cloud, self._color))
+    #     data = data[np.all(data != float('-inf'), axis=1)]  # remove -inf
+    #     # header format of ply file
+    #     header_lines = ["ply",
+    #                     "format ascii 1.0",
+    #                     "comment generated by: python",
+    #                     "element vertex {}".format(int(len(data))),
+    #                     "property float x",
+    #                     "property float y",
+    #                     "property float z",
+    #                     "property uchar red",
+    #                     "property uchar green",
+    #                     "property uchar blue",
+    #                     "end_header"]
+    #     # convert to string
+    #     data = '\n'.join('{} {} {} {} {} {}'.format('%.2f' % x[0], '%.2f' % x[1], '%.2f' % x[2], int(x[3]), int(x[4]), int(x[5])) for x in data)
+    #     header = '\n'.join(line for line in header_lines) + '\n'
+    #     # write file
+    #     file = open(os.path.join(self._dir_path, self._cloud_file), 'w')
+    #     file.write(header)
+    #     file.write(data)
+    #     file.close()
 
     def export_to_pcd(self):
         # assert that the points have been created
